@@ -1,0 +1,516 @@
+openapi: 3.1.0
+info:
+  title: eHRM Workforce Operations API
+  version: 1.0.0
+  description: Phase 2 API specification for Attendance, Shift, Leave, Workflow, Notification, Payroll, and Reporting.
+servers:
+  - url: /api/v1
+security:
+  - BearerAuth: []
+tags:
+  - name: Attendance
+  - name: Shift
+  - name: Leave
+  - name: Workflow
+  - name: Payroll
+  - name: Reports
+  - name: Jobs
+paths:
+  /leave-requests:
+    post:
+      tags: [Leave]
+      summary: Apply for leave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLeaveRequest'
+      responses:
+        '201':
+          description: Leave request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRequestResponse'
+    get:
+      tags: [Leave]
+      summary: List leave requests
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: Paged leave requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedLeaveRequestResponse'
+  /leave-requests/{leave_request_id}/cancel:
+    post:
+      tags: [Leave]
+      summary: Cancel leave request
+      parameters:
+        - $ref: '#/components/parameters/LeaveRequestId'
+      responses:
+        '200':
+          description: Leave request cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveRequestResponse'
+  /workflow-requests/{workflow_request_id}/approve:
+    post:
+      tags: [Workflow]
+      summary: Approve workflow request
+      parameters:
+        - $ref: '#/components/parameters/WorkflowRequestId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment: {type: string, nullable: true}
+      responses:
+        '200':
+          description: Workflow approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRequestResponse'
+  /workflow-requests/{workflow_request_id}/reject:
+    post:
+      tags: [Workflow]
+      summary: Reject workflow request
+      parameters:
+        - $ref: '#/components/parameters/WorkflowRequestId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [comment]
+              properties:
+                comment: {type: string}
+      responses:
+        '200':
+          description: Workflow rejected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRequestResponse'
+  /attendance/raw-logs:
+    post:
+      tags: [Attendance]
+      summary: Record attendance raw log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAttendanceRawLogRequest'
+      responses:
+        '201':
+          description: Attendance raw log created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendanceRawLogResponse'
+  /attendance-adjustment-requests:
+    post:
+      tags: [Attendance]
+      summary: Request attendance adjustment
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [attendance_timesheet_id, reason]
+              properties:
+                attendance_timesheet_id: {type: string, format: uuid}
+                reason: {type: string}
+                evidence_file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Adjustment request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendanceAdjustmentRequestResponse'
+  /shift-templates:
+    post:
+      tags: [Shift]
+      summary: Create shift template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShiftTemplateRequest'
+      responses:
+        '201':
+          description: Shift template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShiftTemplateResponse'
+  /shift-assignments:
+    post:
+      tags: [Shift]
+      summary: Assign shift
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateShiftAssignmentRequest'
+      responses:
+        '201':
+          description: Shift assignment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShiftAssignmentResponse'
+  /attendance-periods/{attendance_period_id}/close:
+    post:
+      tags: [Attendance]
+      summary: Close attendance period
+      parameters:
+        - $ref: '#/components/parameters/AttendancePeriodId'
+      responses:
+        '200':
+          description: Period closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttendancePeriodResponse'
+  /payroll-runs:
+    post:
+      tags: [Payroll]
+      summary: Start payroll run
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartPayrollRunRequest'
+      responses:
+        '202':
+          description: Payroll job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+  /payroll-periods/{payroll_period_id}/lock:
+    post:
+      tags: [Payroll]
+      summary: Lock payroll period
+      parameters:
+        - $ref: '#/components/parameters/PayrollPeriodId'
+      responses:
+        '200':
+          description: Payroll period locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollPeriodResponse'
+  /payslips:
+    get:
+      tags: [Payroll]
+      summary: List payslips
+      responses:
+        '200':
+          description: Paged payslips
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedPayslipResponse'
+  /reports:
+    post:
+      tags: [Reports]
+      summary: Generate report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateReportRequest'
+      responses:
+        '202':
+          description: Report job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+  /jobs/{job_id}:
+    get:
+      tags: [Jobs]
+      summary: Poll async job
+      parameters:
+        - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: {type: integer, minimum: 1, default: 1}
+    PerPage:
+      name: per_page
+      in: query
+      schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+    LeaveRequestId:
+      name: leave_request_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    WorkflowRequestId:
+      name: workflow_request_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    AttendancePeriodId:
+      name: attendance_period_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    PayrollPeriodId:
+      name: payroll_period_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    JobId:
+      name: job_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code: {type: string}
+            message: {type: string}
+            trace_id: {type: string, format: uuid}
+    MetaPage:
+      type: object
+      properties:
+        current_page: {type: integer}
+        per_page: {type: integer}
+        total: {type: integer}
+        last_page: {type: integer}
+    LinkPage:
+      type: object
+      properties:
+        first: {type: string, nullable: true}
+        last: {type: string, nullable: true}
+        prev: {type: string, nullable: true}
+        next: {type: string, nullable: true}
+    LeaveRequest:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        leave_type_id: {type: string, format: uuid}
+        start_at: {type: string, format: date-time}
+        end_at: {type: string, format: date-time}
+        status: {type: string}
+    WorkflowRequest:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        subject_type: {type: string}
+        subject_id: {type: string, format: uuid}
+        status: {type: string}
+        current_step: {type: integer}
+    AttendanceRawLog:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        source: {type: string}
+        event_type: {type: string}
+        event_time: {type: string, format: date-time}
+    AttendanceAdjustmentRequest:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        attendance_timesheet_id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        status: {type: string}
+    ShiftTemplate:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        code: {type: string}
+        name: {type: string}
+        start_time: {type: string}
+        end_time: {type: string}
+        is_overnight: {type: boolean}
+    ShiftAssignment:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        shift_template_id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid, nullable: true}
+        department_id: {type: string, format: uuid, nullable: true}
+        effective_from: {type: string, format: date}
+        effective_to: {type: string, format: date, nullable: true}
+    AttendancePeriod:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        period_code: {type: string}
+        status: {type: string}
+    PayrollPeriod:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        period_code: {type: string}
+        status: {type: string}
+    Payslip:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        published_at: {type: string, format: date-time}
+    JobAcceptedResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            job_id: {type: string, format: uuid}
+            status: {type: string, example: queued}
+            status_url: {type: string}
+    JobStatusResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            job_id: {type: string, format: uuid}
+            status: {type: string, enum: [queued, running, completed, failed]}
+            result_url: {type: string, nullable: true}
+    LeaveRequestResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/LeaveRequest'}
+    PagedLeaveRequestResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items: {$ref: '#/components/schemas/LeaveRequest'}
+        meta: {$ref: '#/components/schemas/MetaPage'}
+        links: {$ref: '#/components/schemas/LinkPage'}
+    WorkflowRequestResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/WorkflowRequest'}
+    AttendanceRawLogResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/AttendanceRawLog'}
+    AttendanceAdjustmentRequestResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/AttendanceAdjustmentRequest'}
+    ShiftTemplateResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/ShiftTemplate'}
+    ShiftAssignmentResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/ShiftAssignment'}
+    AttendancePeriodResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/AttendancePeriod'}
+    PayrollPeriodResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/PayrollPeriod'}
+    PagedPayslipResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items: {$ref: '#/components/schemas/Payslip'}
+        meta: {$ref: '#/components/schemas/MetaPage'}
+        links: {$ref: '#/components/schemas/LinkPage'}
+    CreateLeaveRequest:
+      type: object
+      required: [leave_type_id, start_at, end_at]
+      properties:
+        leave_type_id: {type: string, format: uuid}
+        start_at: {type: string, format: date-time}
+        end_at: {type: string, format: date-time}
+        duration_unit: {type: string, enum: [day, half_day, hour]}
+        reason: {type: string, nullable: true}
+    CreateAttendanceRawLogRequest:
+      type: object
+      required: [source, event_type, event_time]
+      properties:
+        source: {type: string, enum: [web, manual, import, device, gps]}
+        event_type: {type: string, enum: [check_in, check_out, manual]}
+        event_time: {type: string, format: date-time}
+        geo_point:
+          type: object
+          nullable: true
+          properties:
+            lat: {type: number}
+            lng: {type: number}
+    CreateShiftTemplateRequest:
+      type: object
+      required: [code, name, start_time, end_time]
+      properties:
+        code: {type: string}
+        name: {type: string}
+        start_time: {type: string}
+        end_time: {type: string}
+        is_overnight: {type: boolean, default: false}
+        break_minutes: {type: integer, default: 0}
+    CreateShiftAssignmentRequest:
+      type: object
+      required: [shift_template_id, effective_from]
+      properties:
+        shift_template_id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid, nullable: true}
+        department_id: {type: string, format: uuid, nullable: true}
+        effective_from: {type: string, format: date}
+        effective_to: {type: string, format: date, nullable: true}
+    StartPayrollRunRequest:
+      type: object
+      required: [payroll_period_id]
+      properties:
+        payroll_period_id: {type: string, format: uuid}
+        run_type: {type: string, enum: [draft, final, adjustment], default: draft}
+    GenerateReportRequest:
+      type: object
+      required: [report_code]
+      properties:
+        report_code: {type: string}
+        filters:
+          type: object
+          additionalProperties: true

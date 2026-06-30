@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: eHRM Enterprise Extensions API
+  version: 1.0.0
+  description: Phase 4 API specification for Enterprise Identity, Integrations, Mobile, Analytics, Compliance, and Operations.
+servers:
+  - url: /api/v1
+security:
+  - BearerAuth: []
+tags:
+  - name: EnterpriseIdentity
+  - name: Integrations
+  - name: Mobile
+  - name: Analytics
+  - name: Compliance
+  - name: Operations
+paths:
+  /identity-providers:
+    post:
+      tags: [EnterpriseIdentity]
+      summary: Register identity provider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIdentityProviderRequest'
+      responses:
+        '201':
+          description: Identity provider created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderResponse'
+  /identity-providers/{identity_provider_id}/enable:
+    post:
+      tags: [EnterpriseIdentity]
+      summary: Enable identity provider
+      parameters:
+        - $ref: '#/components/parameters/IdentityProviderId'
+      responses:
+        '200':
+          description: Identity provider enabled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderResponse'
+  /data-export-requests:
+    post:
+      tags: [Compliance]
+      summary: Request sensitive data export
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataExportRequest'
+      responses:
+        '201':
+          description: Export request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataExportRequestResponse'
+  /integration-endpoints:
+    post:
+      tags: [Integrations]
+      summary: Register integration endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationEndpointRequest'
+      responses:
+        '201':
+          description: Integration endpoint created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationEndpointResponse'
+  /integration-jobs:
+    post:
+      tags: [Integrations]
+      summary: Start integration job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationJobRequest'
+      responses:
+        '202':
+          description: Job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+  /mobile-devices:
+    post:
+      tags: [Mobile]
+      summary: Register mobile device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMobileDeviceRequest'
+      responses:
+        '201':
+          description: Device registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MobileDeviceResponse'
+  /analytics-report-runs:
+    post:
+      tags: [Analytics]
+      summary: Generate analytics report
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnalyticsReportRunRequest'
+      responses:
+        '202':
+          description: Analytics job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+  /retention-policies:
+    post:
+      tags: [Compliance]
+      summary: Create retention policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRetentionPolicyRequest'
+      responses:
+        '201':
+          description: Retention policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetentionPolicyResponse'
+  /archive-batches:
+    post:
+      tags: [Operations]
+      summary: Run archive batch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateArchiveBatchRequest'
+      responses:
+        '202':
+          description: Archive job queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    IdentityProviderId:
+      name: identity_provider_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  schemas:
+    IdentityProvider:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        provider_type: {type: string}
+        issuer: {type: string}
+        active: {type: boolean}
+    DataExportRequest:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        target_scope: {type: string}
+        status: {type: string}
+        reason: {type: string}
+    IntegrationEndpoint:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        code: {type: string}
+        system_type: {type: string}
+        direction: {type: string}
+        active: {type: boolean}
+    MobileDevice:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        device_identifier: {type: string}
+        platform: {type: string}
+        status: {type: string}
+    RetentionPolicy:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        code: {type: string}
+        name: {type: string}
+        active: {type: boolean}
+    IdentityProviderResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/IdentityProvider'}
+    DataExportRequestResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/DataExportRequest'}
+    IntegrationEndpointResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/IntegrationEndpoint'}
+    MobileDeviceResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/MobileDevice'}
+    RetentionPolicyResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/RetentionPolicy'}
+    JobAcceptedResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            job_id: {type: string, format: uuid}
+            status: {type: string, example: queued}
+            status_url: {type: string}
+    CreateIdentityProviderRequest:
+      type: object
+      required: [provider_type, issuer, client_id]
+      properties:
+        provider_type: {type: string}
+        issuer: {type: string}
+        client_id: {type: string}
+        mapping_rules:
+          type: object
+          additionalProperties: true
+    CreateDataExportRequest:
+      type: object
+      required: [target_scope, reason]
+      properties:
+        target_scope: {type: string}
+        reason: {type: string}
+        filters:
+          type: object
+          additionalProperties: true
+    CreateIntegrationEndpointRequest:
+      type: object
+      required: [code, system_type, direction, transport]
+      properties:
+        code: {type: string}
+        system_type: {type: string}
+        direction: {type: string, enum: [inbound, outbound, bidirectional]}
+        transport: {type: string}
+    CreateIntegrationJobRequest:
+      type: object
+      required: [integration_endpoint_id, job_type]
+      properties:
+        integration_endpoint_id: {type: string, format: uuid}
+        job_type: {type: string}
+        payload_ref: {type: string, nullable: true}
+    CreateMobileDeviceRequest:
+      type: object
+      required: [device_identifier, platform]
+      properties:
+        device_identifier: {type: string}
+        platform: {type: string}
+        push_token: {type: string, nullable: true}
+    CreateAnalyticsReportRunRequest:
+      type: object
+      required: [definition_code]
+      properties:
+        definition_code: {type: string}
+        filters:
+          type: object
+          additionalProperties: true
+    CreateRetentionPolicyRequest:
+      type: object
+      required: [code, name]
+      properties:
+        code: {type: string}
+        name: {type: string}
+        rule_config:
+          type: object
+          additionalProperties: true
+    CreateArchiveBatchRequest:
+      type: object
+      required: [target_table, period_key]
+      properties:
+        target_table: {type: string}
+        period_key: {type: string}

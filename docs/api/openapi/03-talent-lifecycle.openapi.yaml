@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  title: eHRM Talent Lifecycle API
+  version: 1.0.0
+  description: Phase 3 API specification for Recruitment, Onboarding, Offboarding, Performance, Training, and Asset.
+servers:
+  - url: /api/v1
+security:
+  - BearerAuth: []
+tags:
+  - name: Recruitment
+  - name: Onboarding
+  - name: Offboarding
+  - name: Performance
+  - name: Training
+  - name: Assets
+paths:
+  /recruitment-requisitions:
+    post:
+      tags: [Recruitment]
+      summary: Create recruitment requisition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequisitionRequest'
+      responses:
+        '201':
+          description: Requisition created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequisitionResponse'
+  /candidates:
+    post:
+      tags: [Recruitment]
+      summary: Add candidate
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [full_name]
+              properties:
+                full_name: {type: string}
+                email: {type: string, format: email, nullable: true}
+                phone: {type: string, nullable: true}
+                source: {type: string, nullable: true}
+                cv_file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Candidate created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateResponse'
+  /candidates/{candidate_id}/hire:
+    post:
+      tags: [Recruitment]
+      summary: Convert candidate to employee
+      parameters:
+        - $ref: '#/components/parameters/CandidateId'
+      responses:
+        '200':
+          description: Candidate hired
+          content:
+            application/json:
+              schema:
+                type: object
+  /onboarding-plans:
+    post:
+      tags: [Onboarding]
+      summary: Create onboarding plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOnboardingPlanRequest'
+      responses:
+        '201':
+          description: Onboarding plan created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OnboardingPlanResponse'
+  /offboarding-requests:
+    post:
+      tags: [Offboarding]
+      summary: Request offboarding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOffboardingRequest'
+      responses:
+        '201':
+          description: Offboarding request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffboardingRequestResponse'
+  /performance-reviews/{performance_review_id}/self-assessment:
+    post:
+      tags: [Performance]
+      summary: Submit self-assessment
+      parameters:
+        - $ref: '#/components/parameters/PerformanceReviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                self_assessment:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Self-assessment submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceReviewResponse'
+  /performance-reviews/{performance_review_id}/manager-review:
+    post:
+      tags: [Performance]
+      summary: Submit manager review
+      parameters:
+        - $ref: '#/components/parameters/PerformanceReviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [manager_assessment]
+              properties:
+                manager_assessment:
+                  type: object
+                  additionalProperties: true
+                score: {type: number}
+      responses:
+        '200':
+          description: Manager review submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceReviewResponse'
+  /training-sessions:
+    post:
+      tags: [Training]
+      summary: Create training session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTrainingSessionRequest'
+      responses:
+        '201':
+          description: Training session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingSessionResponse'
+  /assets/assignments:
+    post:
+      tags: [Assets]
+      summary: Assign asset to employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetAssignmentRequest'
+      responses:
+        '201':
+          description: Asset assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetAssignmentResponse'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    CandidateId:
+      name: candidate_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    PerformanceReviewId:
+      name: performance_review_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  schemas:
+    Requisition:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        department_id: {type: string, format: uuid}
+        position_id: {type: string, format: uuid}
+        status: {type: string}
+    Candidate:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        full_name: {type: string}
+        email: {type: string, format: email, nullable: true}
+        phone: {type: string, nullable: true}
+        status: {type: string}
+    OnboardingPlan:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        status: {type: string}
+    OffboardingRequest:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        status: {type: string}
+    PerformanceReview:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        status: {type: string}
+        score: {type: number, nullable: true}
+    TrainingSession:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        training_course_id: {type: string, format: uuid}
+        starts_at: {type: string, format: date-time}
+        ends_at: {type: string, format: date-time}
+        status: {type: string}
+    AssetAssignment:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        asset_item_id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        status: {type: string}
+    RequisitionResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/Requisition'}
+    CandidateResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/Candidate'}
+    OnboardingPlanResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/OnboardingPlan'}
+    OffboardingRequestResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/OffboardingRequest'}
+    PerformanceReviewResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/PerformanceReview'}
+    TrainingSessionResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/TrainingSession'}
+    AssetAssignmentResponse:
+      type: object
+      properties:
+        data: {$ref: '#/components/schemas/AssetAssignment'}
+    CreateRequisitionRequest:
+      type: object
+      required: [department_id, position_id, headcount]
+      properties:
+        department_id: {type: string, format: uuid}
+        position_id: {type: string, format: uuid}
+        headcount: {type: integer, minimum: 1}
+        reason: {type: string, nullable: true}
+    CreateOnboardingPlanRequest:
+      type: object
+      required: [employee_id]
+      properties:
+        employee_id: {type: string, format: uuid}
+        template_id: {type: string, format: uuid, nullable: true}
+        start_date: {type: string, format: date, nullable: true}
+    CreateOffboardingRequest:
+      type: object
+      required: [employee_id, reason, requested_last_working_date]
+      properties:
+        employee_id: {type: string, format: uuid}
+        reason: {type: string}
+        requested_last_working_date: {type: string, format: date}
+    CreateTrainingSessionRequest:
+      type: object
+      required: [training_course_id, starts_at, ends_at]
+      properties:
+        training_course_id: {type: string, format: uuid}
+        starts_at: {type: string, format: date-time}
+        ends_at: {type: string, format: date-time}
+        capacity: {type: integer, nullable: true}
+    CreateAssetAssignmentRequest:
+      type: object
+      required: [asset_item_id, employee_id]
+      properties:
+        asset_item_id: {type: string, format: uuid}
+        employee_id: {type: string, format: uuid}
+        expected_return_at: {type: string, format: date-time, nullable: true}
