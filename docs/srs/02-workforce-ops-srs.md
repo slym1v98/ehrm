@@ -72,14 +72,14 @@ flowchart LR
 
 ### 2.2 Primary Actors
 
-| Actor | Phase 2 responsibilities |
-| --- | --- |
-| Employee | Check-in/out, submit leave/request forms, view balances and payslips. |
-| Department Manager | Approve attendance adjustments, leave, overtime, and scoped requests. |
-| HR Staff | Review attendance issues, maintain shift calendars, support leave and payroll inputs. |
-| HR Manager | Owns policy settings, approvals, workforce oversight, and reporting. |
-| Accountant/Payroll | Processes payroll periods, adjustments, approvals, and exports. |
-| Admin | Maintains workflow, notification, and technical configuration. |
+| Actor              | Phase 2 responsibilities                                                              |
+|--------------------|---------------------------------------------------------------------------------------|
+| Employee           | Check-in/out, submit leave/request forms, view balances and payslips.                 |
+| Department Manager | Approve attendance adjustments, leave, overtime, and scoped requests.                 |
+| HR Staff           | Review attendance issues, maintain shift calendars, support leave and payroll inputs. |
+| HR Manager         | Owns policy settings, approvals, workforce oversight, and reporting.                  |
+| Accountant/Payroll | Processes payroll periods, adjustments, approvals, and exports.                       |
+| Admin              | Maintains workflow, notification, and technical configuration.                        |
 
 ### 2.3 Phase 2 Success Outcome
 
@@ -95,17 +95,17 @@ The system shall collect attendance inputs, normalize raw logs, apply schedule a
 
 ### 3.1.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
+| ID         | Requirement                                                                                                                                        |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | ATT-FR-001 | The system shall capture attendance from supported sources including web, manual entry, import, device logs, and GPS-backed check-in when enabled. |
-| ATT-FR-002 | The system shall store raw attendance logs separately from calculated attendance results. |
-| ATT-FR-003 | The system shall calculate daily attendance outcomes using shift schedule, approved leave, holidays, weekends, and configured attendance rules. |
-| ATT-FR-004 | The system shall support late arrival, early departure, absence, overtime, and attendance adjustment scenarios. |
-| ATT-FR-005 | The system shall support cross-day and overnight shifts. |
-| ATT-FR-006 | The system shall support manual attendance adjustment requests requiring approval. |
-| ATT-FR-007 | The system shall maintain calculated timesheets by employee and payroll period. |
-| ATT-FR-008 | The system shall preserve recalculation auditability when approved requests or shift assignments change. |
-| ATT-FR-009 | The system shall support monthly attendance closing to stabilize payroll inputs. |
+| ATT-FR-002 | The system shall store raw attendance logs separately from calculated attendance results.                                                          |
+| ATT-FR-003 | The system shall calculate daily attendance outcomes using shift schedule, approved leave, holidays, weekends, and configured attendance rules.    |
+| ATT-FR-004 | The system shall support late arrival, early departure, absence, overtime, and attendance adjustment scenarios.                                    |
+| ATT-FR-005 | The system shall support cross-day and overnight shifts.                                                                                           |
+| ATT-FR-006 | The system shall support manual attendance adjustment requests requiring approval.                                                                 |
+| ATT-FR-007 | The system shall maintain calculated timesheets by employee and payroll period.                                                                    |
+| ATT-FR-008 | The system shall preserve recalculation auditability when approved requests or shift assignments change.                                           |
+| ATT-FR-009 | The system shall support monthly attendance closing to stabilize payroll inputs.                                                                   |
 
 ### 3.1.3 Business Rules
 
@@ -143,15 +143,15 @@ The system shall define shift templates and assign work schedules to employees o
 
 ### 3.2.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
+| ID         | Requirement                                                                                                          |
+|------------|----------------------------------------------------------------------------------------------------------------------|
 | SHF-FR-001 | The system shall manage shift templates including start/end times, breaks, tolerance rules, and overtime thresholds. |
-| SHF-FR-002 | The system shall support normal, flexible, remote, split, and overnight shifts when configured. |
-| SHF-FR-003 | The system shall assign shifts to employees, departments, or groups for date ranges. |
-| SHF-FR-004 | The system shall support shift change and shift swap requests requiring approval when configured. |
-| SHF-FR-005 | The system shall support recurring schedules and ad hoc overrides. |
-| SHF-FR-006 | The system shall expose scheduled shift data to attendance calculation and employee self-service views. |
-| SHF-FR-007 | The system shall audit shift template and assignment changes. |
+| SHF-FR-002 | The system shall support normal, flexible, remote, split, and overnight shifts when configured.                      |
+| SHF-FR-003 | The system shall assign shifts to employees, departments, or groups for date ranges.                                 |
+| SHF-FR-004 | The system shall support shift change and shift swap requests requiring approval when configured.                    |
+| SHF-FR-005 | The system shall support recurring schedules and ad hoc overrides.                                                   |
+| SHF-FR-006 | The system shall expose scheduled shift data to attendance calculation and employee self-service views.              |
+| SHF-FR-007 | The system shall audit shift template and assignment changes.                                                        |
 
 ### 3.2.3 Business Rules
 
@@ -177,17 +177,17 @@ The system shall manage leave types, balances, requests, approvals, holiday inte
 
 ### 3.3.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
+| ID         | Requirement                                                                                                                                      |
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | LEA-FR-001 | The system shall support configurable leave types including annual leave, sick leave, unpaid leave, maternity leave, and company-specific types. |
-| LEA-FR-002 | The system shall maintain leave balances when balance-tracked leave types apply. |
-| LEA-FR-003 | The system shall support full-day, half-day, and configured hourly leave requests. |
-| LEA-FR-004 | The system shall validate leave requests against policy, balance, holidays, overlaps, and request windows. |
-| LEA-FR-005 | The system shall route leave requests through approval workflow. |
-| LEA-FR-006 | The system shall reflect approved leave into attendance and payroll inputs. |
-| LEA-FR-007 | The system shall support leave cancellation and modification rules. |
-| LEA-FR-008 | The system shall support carry-forward and expiry rules where configured. |
-| LEA-FR-009 | The system shall expose leave calendars for authorized users. |
+| LEA-FR-002 | The system shall maintain leave balances when balance-tracked leave types apply.                                                                 |
+| LEA-FR-003 | The system shall support full-day, half-day, and configured hourly leave requests.                                                               |
+| LEA-FR-004 | The system shall validate leave requests against policy, balance, holidays, overlaps, and request windows.                                       |
+| LEA-FR-005 | The system shall route leave requests through approval workflow.                                                                                 |
+| LEA-FR-006 | The system shall reflect approved leave into attendance and payroll inputs.                                                                      |
+| LEA-FR-007 | The system shall support leave cancellation and modification rules.                                                                              |
+| LEA-FR-008 | The system shall support carry-forward and expiry rules where configured.                                                                        |
+| LEA-FR-009 | The system shall expose leave calendars for authorized users.                                                                                    |
 
 ### 3.3.3 Business Rules
 
@@ -214,16 +214,16 @@ The system shall provide a shared workflow engine for approvals used by leave, a
 
 ### 3.4.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| WFL-FR-001 | The system shall define workflow templates by request type. |
-| WFL-FR-002 | The system shall support sequential multi-step approval. |
+| ID         | Requirement                                                                                                             |
+|------------|-------------------------------------------------------------------------------------------------------------------------|
+| WFL-FR-001 | The system shall define workflow templates by request type.                                                             |
+| WFL-FR-002 | The system shall support sequential multi-step approval.                                                                |
 | WFL-FR-003 | The system shall support conditional routing based on attributes such as duration, amount, branch, department, or role. |
-| WFL-FR-004 | The system shall support approve, reject, cancel, and return-for-edit actions. |
-| WFL-FR-005 | The system shall support approver delegation for date ranges when configured. |
-| WFL-FR-006 | The system shall maintain full request history, comments, and timestamps. |
-| WFL-FR-007 | The system shall notify pending approvers and request submitters of status changes. |
-| WFL-FR-008 | The system shall audit template changes and approval decisions. |
+| WFL-FR-004 | The system shall support approve, reject, cancel, and return-for-edit actions.                                          |
+| WFL-FR-005 | The system shall support approver delegation for date ranges when configured.                                           |
+| WFL-FR-006 | The system shall maintain full request history, comments, and timestamps.                                               |
+| WFL-FR-007 | The system shall notify pending approvers and request submitters of status changes.                                     |
+| WFL-FR-008 | The system shall audit template changes and approval decisions.                                                         |
 
 ### 3.4.3 Business Rules
 
@@ -250,15 +250,15 @@ The system shall send operational notifications for approvals, expiry reminders,
 
 ### 3.5.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| NTF-FR-001 | The system shall support in-app notifications. |
-| NTF-FR-002 | The system shall support email notifications. |
-| NTF-FR-003 | The system should support optional SMS/Zalo/Web Push through provider integrations when enabled. |
+| ID         | Requirement                                                                                                                                     |
+|------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| NTF-FR-001 | The system shall support in-app notifications.                                                                                                  |
+| NTF-FR-002 | The system shall support email notifications.                                                                                                   |
+| NTF-FR-003 | The system should support optional SMS/Zalo/Web Push through provider integrations when enabled.                                                |
 | NTF-FR-004 | The system shall trigger notifications for approval tasks, request status changes, contract/document expiry reminders, and payroll publication. |
-| NTF-FR-005 | The system shall maintain notification templates with variables. |
-| NTF-FR-006 | The system shall track notification delivery state when channels provide delivery feedback. |
-| NTF-FR-007 | The system shall support user-level notification preferences where allowed by policy. |
+| NTF-FR-005 | The system shall maintain notification templates with variables.                                                                                |
+| NTF-FR-006 | The system shall track notification delivery state when channels provide delivery feedback.                                                     |
+| NTF-FR-007 | The system shall support user-level notification preferences where allowed by policy.                                                           |
 
 ### 3.5.3 Business Rules
 
@@ -274,17 +274,17 @@ The system shall calculate payroll using employee, contract, attendance, leave, 
 
 ### 3.6.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| PAY-FR-001 | The system shall define payroll periods. |
-| PAY-FR-002 | The system shall calculate payroll for employees in a selected period using configured formulas and inputs. |
+| ID         | Requirement                                                                                                                                        |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| PAY-FR-001 | The system shall define payroll periods.                                                                                                           |
+| PAY-FR-002 | The system shall calculate payroll for employees in a selected period using configured formulas and inputs.                                        |
 | PAY-FR-003 | The system shall support salary components including base salary, allowances, bonus, penalties, overtime, deductions, insurance, tax, and net pay. |
-| PAY-FR-004 | The system shall support payroll adjustments before final approval. |
-| PAY-FR-005 | The system shall allow authorized payroll users to review, approve, lock, and publish payroll. |
-| PAY-FR-006 | The system shall prevent ordinary edits to locked payroll records. |
-| PAY-FR-007 | The system shall generate employee payslips. |
-| PAY-FR-008 | The system shall support payroll exports for bank transfer or accounting integration. |
-| PAY-FR-009 | The system shall audit calculation runs, adjustments, approvals, locks, publications, and exports. |
+| PAY-FR-004 | The system shall support payroll adjustments before final approval.                                                                                |
+| PAY-FR-005 | The system shall allow authorized payroll users to review, approve, lock, and publish payroll.                                                     |
+| PAY-FR-006 | The system shall prevent ordinary edits to locked payroll records.                                                                                 |
+| PAY-FR-007 | The system shall generate employee payslips.                                                                                                       |
+| PAY-FR-008 | The system shall support payroll exports for bank transfer or accounting integration.                                                              |
+| PAY-FR-009 | The system shall audit calculation runs, adjustments, approvals, locks, publications, and exports.                                                 |
 
 ### 3.6.3 Business Rules
 
@@ -325,13 +325,13 @@ The system shall provide operational dashboards and reports for attendance, leav
 
 ### 3.7.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| RPT-FR-001 | The system shall provide role-based dashboards for HR, manager, and payroll users. |
-| RPT-FR-002 | The system shall provide reports for attendance, lateness, leave usage, payroll summaries, and approval workload. |
+| ID         | Requirement                                                                                                        |
+|------------|--------------------------------------------------------------------------------------------------------------------|
+| RPT-FR-001 | The system shall provide role-based dashboards for HR, manager, and payroll users.                                 |
+| RPT-FR-002 | The system shall provide reports for attendance, lateness, leave usage, payroll summaries, and approval workload.  |
 | RPT-FR-003 | The system shall support filtering by branch, department, employee, date range, and status within user data scope. |
-| RPT-FR-004 | The system shall support export of authorized report results. |
-| RPT-FR-005 | The system shall log report export actions. |
+| RPT-FR-004 | The system shall support export of authorized report results.                                                      |
+| RPT-FR-005 | The system shall log report export actions.                                                                        |
 
 ### 3.7.3 Business Rules
 

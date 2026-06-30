@@ -63,13 +63,13 @@ The system shall support enterprise identity federation and stronger access cont
 
 ### 3.1.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| IAMX-FR-001 | The system shall support SSO through standards-based identity providers when enabled. |
-| IAMX-FR-002 | The system shall support role and attribute mapping from external identity providers where configured. |
+| ID          | Requirement                                                                                                                  |
+|-------------|------------------------------------------------------------------------------------------------------------------------------|
+| IAMX-FR-001 | The system shall support SSO through standards-based identity providers when enabled.                                        |
+| IAMX-FR-002 | The system shall support role and attribute mapping from external identity providers where configured.                       |
 | IAMX-FR-003 | The system shall support stronger session controls such as forced logout, session revocation, and device/session visibility. |
-| IAMX-FR-004 | The system should support MFA for privileged accounts when enabled. |
-| IAMX-FR-005 | The system shall audit SSO login and federation mapping events. |
+| IAMX-FR-004 | The system should support MFA for privileged accounts when enabled.                                                          |
+| IAMX-FR-005 | The system shall audit SSO login and federation mapping events.                                                              |
 
 ## 3.2 Advanced Integration Hub
 
@@ -79,13 +79,13 @@ The system shall support controlled integrations with external systems and provi
 
 ### 3.2.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| INT-FR-001 | The system shall manage integration credentials securely. |
-| INT-FR-002 | The system shall support outbound webhooks or event notifications where appropriate. |
+| ID         | Requirement                                                                                                    |
+|------------|----------------------------------------------------------------------------------------------------------------|
+| INT-FR-001 | The system shall manage integration credentials securely.                                                      |
+| INT-FR-002 | The system shall support outbound webhooks or event notifications where appropriate.                           |
 | INT-FR-003 | The system shall support import/export connectors for accounting, banking, attendance devices, or ERP systems. |
-| INT-FR-004 | The system shall log integration runs, failures, and retries. |
-| INT-FR-005 | The system shall isolate integration failure from core transaction integrity. |
+| INT-FR-004 | The system shall log integration runs, failures, and retries.                                                  |
+| INT-FR-005 | The system shall isolate integration failure from core transaction integrity.                                  |
 
 ## 3.3 Mobile Readiness & Self-Service Extensions
 
@@ -95,12 +95,12 @@ The system shall expose stable APIs and capabilities needed by future employee/m
 
 ### 3.3.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| MOB-FR-001 | The system shall expose APIs suitable for employee and manager self-service clients. |
+| ID         | Requirement                                                                                                                     |
+|------------|---------------------------------------------------------------------------------------------------------------------------------|
+| MOB-FR-001 | The system shall expose APIs suitable for employee and manager self-service clients.                                            |
 | MOB-FR-002 | The system should support mobile use cases such as attendance, leave, approvals, payslip view, notifications, and profile view. |
-| MOB-FR-003 | The system shall protect mobile APIs with the same permission and data-scope rules as web clients. |
-| MOB-FR-004 | The system should support push-notification-ready event hooks when mobile channel is introduced. |
+| MOB-FR-003 | The system shall protect mobile APIs with the same permission and data-scope rules as web clients.                              |
+| MOB-FR-004 | The system should support push-notification-ready event hooks when mobile channel is introduced.                                |
 
 ## 3.4 Advanced Analytics & Executive Reporting
 
@@ -110,12 +110,12 @@ The system shall provide higher-level workforce analytics, cross-module trend re
 
 ### 3.4.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
+| ID         | Requirement                                                                                                                                                              |
+|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ANL-FR-001 | The system shall provide executive workforce KPIs such as headcount trends, turnover, leave trends, attendance discipline, payroll cost, and recruitment funnel metrics. |
-| ANL-FR-002 | The system shall support role-based executive dashboards. |
-| ANL-FR-003 | The system shall support asynchronous generation of large analytical reports. |
-| ANL-FR-004 | The system should support drill-down from summary metrics to authorized detail views. |
+| ANL-FR-002 | The system shall support role-based executive dashboards.                                                                                                                |
+| ANL-FR-003 | The system shall support asynchronous generation of large analytical reports.                                                                                            |
+| ANL-FR-004 | The system should support drill-down from summary metrics to authorized detail views.                                                                                    |
 
 ## 3.5 Compliance Extensions
 
@@ -125,13 +125,13 @@ The system shall support stronger governance, privacy, and compliance controls.
 
 ### 3.5.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| CMP-FR-001 | The system shall support configurable retention and archival rules for selected record types. |
-| CMP-FR-002 | The system shall support enhanced export/download auditability for sensitive data. |
-| CMP-FR-003 | The system should support policy-driven masking of sensitive fields. |
+| ID         | Requirement                                                                                                    |
+|------------|----------------------------------------------------------------------------------------------------------------|
+| CMP-FR-001 | The system shall support configurable retention and archival rules for selected record types.                  |
+| CMP-FR-002 | The system shall support enhanced export/download auditability for sensitive data.                             |
+| CMP-FR-003 | The system should support policy-driven masking of sensitive fields.                                           |
 | CMP-FR-004 | The system shall support evidence gathering for audits of payroll, employee data changes, and approval trails. |
-| CMP-FR-005 | The system shall support backup/recovery operational documentation and execution evidence. |
+| CMP-FR-005 | The system shall support backup/recovery operational documentation and execution evidence.                     |
 
 ## 3.6 Scale Hardening & Operational Controls
 
@@ -141,13 +141,13 @@ The system shall add technical controls needed as data volume and business criti
 
 ### 3.6.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| SCL-FR-001 | The system shall support large-table indexing and partitioning strategies where required by data growth. |
-| SCL-FR-002 | The system shall support background processing visibility for heavy jobs. |
+| ID         | Requirement                                                                                                      |
+|------------|------------------------------------------------------------------------------------------------------------------|
+| SCL-FR-001 | The system shall support large-table indexing and partitioning strategies where required by data growth.         |
+| SCL-FR-002 | The system shall support background processing visibility for heavy jobs.                                        |
 | SCL-FR-003 | The system shall expose operational metrics and failure visibility for queues, integrations, and scheduled jobs. |
-| SCL-FR-004 | The system shall support disaster recovery procedures and validation activities. |
-| SCL-FR-005 | The system should support archive strategies for historical HR data without breaking required reporting. |
+| SCL-FR-004 | The system shall support disaster recovery procedures and validation activities.                                 |
+| SCL-FR-005 | The system should support archive strategies for historical HR data without breaking required reporting.         |
 
 ## 4. Cross-Module Outcome
 

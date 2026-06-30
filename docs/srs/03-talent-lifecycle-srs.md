@@ -55,15 +55,15 @@ flowchart LR
 
 ### 2.2 Primary Actors
 
-| Actor | Phase 3 responsibilities |
-| --- | --- |
-| Recruiter | Manage requisitions, candidates, interviews, offers. |
-| Interviewer | Submit candidate evaluations. |
-| HR Staff | Drive onboarding/offboarding and documentation. |
+| Actor              | Phase 3 responsibilities                                                                |
+|--------------------|-----------------------------------------------------------------------------------------|
+| Recruiter          | Manage requisitions, candidates, interviews, offers.                                    |
+| Interviewer        | Submit candidate evaluations.                                                           |
+| HR Staff           | Drive onboarding/offboarding and documentation.                                         |
 | Department Manager | Request headcount, interview, approve onboarding/offboarding tasks, review performance. |
-| Employee | Complete self-service onboarding/offboarding tasks, reviews, and training. |
-| Trainer | Manage training courses and results. |
-| IT/Admin Support | Prepare/recover accounts and assets. |
+| Employee           | Complete self-service onboarding/offboarding tasks, reviews, and training.              |
+| Trainer            | Manage training courses and results.                                                    |
+| IT/Admin Support   | Prepare/recover accounts and assets.                                                    |
 
 ## 3. Functional Requirements
 
@@ -75,17 +75,17 @@ The system shall manage recruitment requests, job postings, candidate records, i
 
 ### 3.1.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| REC-FR-001 | The system shall allow authorized users to create recruitment requisitions. |
+| ID         | Requirement                                                                                              |
+|------------|----------------------------------------------------------------------------------------------------------|
+| REC-FR-001 | The system shall allow authorized users to create recruitment requisitions.                              |
 | REC-FR-002 | The system shall track requisition status through approval, open, on-hold, closed, and cancelled states. |
-| REC-FR-003 | The system shall manage candidate profiles with source, CV, contact data, and application history. |
-| REC-FR-004 | The system shall detect candidate duplicates by configured identity keys such as email or phone. |
-| REC-FR-005 | The system shall support interview scheduling and interviewer assignment. |
-| REC-FR-006 | The system shall collect interviewer scorecards and comments. |
-| REC-FR-007 | The system shall support candidate pipeline stages and status transitions. |
-| REC-FR-008 | The system shall support offer generation and candidate-to-employee conversion on hire. |
-| REC-FR-009 | The system shall audit candidate status changes, offer decisions, and employee conversion. |
+| REC-FR-003 | The system shall manage candidate profiles with source, CV, contact data, and application history.       |
+| REC-FR-004 | The system shall detect candidate duplicates by configured identity keys such as email or phone.         |
+| REC-FR-005 | The system shall support interview scheduling and interviewer assignment.                                |
+| REC-FR-006 | The system shall collect interviewer scorecards and comments.                                            |
+| REC-FR-007 | The system shall support candidate pipeline stages and status transitions.                               |
+| REC-FR-008 | The system shall support offer generation and candidate-to-employee conversion on hire.                  |
+| REC-FR-009 | The system shall audit candidate status changes, offer decisions, and employee conversion.               |
 
 ### 3.1.3 Business Rules
 
@@ -101,15 +101,15 @@ The system shall manage onboarding checklists, task assignment, document collect
 
 ### 3.2.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| ONB-FR-001 | The system shall allow onboarding templates by role, department, or location. |
-| ONB-FR-002 | The system shall create onboarding plans for new hires. |
+| ID         | Requirement                                                                               |
+|------------|-------------------------------------------------------------------------------------------|
+| ONB-FR-001 | The system shall allow onboarding templates by role, department, or location.             |
+| ONB-FR-002 | The system shall create onboarding plans for new hires.                                   |
 | ONB-FR-003 | The system shall assign onboarding tasks to HR, manager, IT, admin support, and employee. |
-| ONB-FR-004 | The system shall track task status, owner, due date, and completion proof where needed. |
-| ONB-FR-005 | The system shall support pre-start and post-start onboarding steps. |
-| ONB-FR-006 | The system shall notify task owners of pending or overdue work. |
-| ONB-FR-007 | The system shall audit onboarding creation and completion actions. |
+| ONB-FR-004 | The system shall track task status, owner, due date, and completion proof where needed.   |
+| ONB-FR-005 | The system shall support pre-start and post-start onboarding steps.                       |
+| ONB-FR-006 | The system shall notify task owners of pending or overdue work.                           |
+| ONB-FR-007 | The system shall audit onboarding creation and completion actions.                        |
 
 ### 3.2.3 Business Rules
 
@@ -125,15 +125,15 @@ The system shall manage resignation, approval, handover, asset return, account c
 
 ### 3.3.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
+| ID         | Requirement                                                                                                 |
+|------------|-------------------------------------------------------------------------------------------------------------|
 | OFF-FR-001 | The system shall support offboarding initiation from resignation or company-initiated separation workflows. |
-| OFF-FR-002 | The system shall create offboarding checklists with accountable owners. |
-| OFF-FR-003 | The system shall track handover tasks, asset returns, account closure, and exit approvals. |
-| OFF-FR-004 | The system shall capture resignation reason and effective leaving date. |
-| OFF-FR-005 | The system shall support final clearance status. |
-| OFF-FR-006 | The system shall support linkage to final payroll processing inputs. |
-| OFF-FR-007 | The system shall audit offboarding actions. |
+| OFF-FR-002 | The system shall create offboarding checklists with accountable owners.                                     |
+| OFF-FR-003 | The system shall track handover tasks, asset returns, account closure, and exit approvals.                  |
+| OFF-FR-004 | The system shall capture resignation reason and effective leaving date.                                     |
+| OFF-FR-005 | The system shall support final clearance status.                                                            |
+| OFF-FR-006 | The system shall support linkage to final payroll processing inputs.                                        |
+| OFF-FR-007 | The system shall audit offboarding actions.                                                                 |
 
 ### 3.3.3 Business Rules
 
@@ -149,15 +149,15 @@ The system shall support periodic performance planning, self-review, manager rev
 
 ### 3.4.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| PRF-FR-001 | The system shall define performance cycles. |
+| ID         | Requirement                                                                              |
+|------------|------------------------------------------------------------------------------------------|
+| PRF-FR-001 | The system shall define performance cycles.                                              |
 | PRF-FR-002 | The system shall support goals, KPIs, OKRs, competencies, or configured review criteria. |
-| PRF-FR-003 | The system shall support self-assessment and manager assessment. |
-| PRF-FR-004 | The system shall support weighted scoring. |
-| PRF-FR-005 | The system shall support manager comments and performance conclusions. |
-| PRF-FR-006 | The system shall restrict visibility of performance reviews to authorized participants. |
-| PRF-FR-007 | The system shall audit review submissions and final outcomes. |
+| PRF-FR-003 | The system shall support self-assessment and manager assessment.                         |
+| PRF-FR-004 | The system shall support weighted scoring.                                               |
+| PRF-FR-005 | The system shall support manager comments and performance conclusions.                   |
+| PRF-FR-006 | The system shall restrict visibility of performance reviews to authorized participants.  |
+| PRF-FR-007 | The system shall audit review submissions and final outcomes.                            |
 
 ### 3.4.3 Business Rules
 
@@ -173,14 +173,14 @@ The system shall manage internal training catalog, sessions, enrollment, attenda
 
 ### 3.5.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| TRN-FR-001 | The system shall manage training courses and sessions. |
-| TRN-FR-002 | The system shall allow employee enrollment or assignment. |
-| TRN-FR-003 | The system shall track attendance and completion status. |
+| ID         | Requirement                                                                  |
+|------------|------------------------------------------------------------------------------|
+| TRN-FR-001 | The system shall manage training courses and sessions.                       |
+| TRN-FR-002 | The system shall allow employee enrollment or assignment.                    |
+| TRN-FR-003 | The system shall track attendance and completion status.                     |
 | TRN-FR-004 | The system shall record training results or certifications where applicable. |
-| TRN-FR-005 | The system shall notify participants of schedule and completion events. |
-| TRN-FR-006 | The system shall audit training record changes. |
+| TRN-FR-005 | The system shall notify participants of schedule and completion events.      |
+| TRN-FR-006 | The system shall audit training record changes.                              |
 
 ## 3.6 Asset Management
 
@@ -190,14 +190,14 @@ The system shall track employee-assigned company assets through issuance, custod
 
 ### 3.6.2 Functional Requirements
 
-| ID | Requirement |
-| --- | --- |
-| AST-FR-001 | The system shall manage asset inventory records. |
-| AST-FR-002 | The system shall assign assets to employees. |
+| ID         | Requirement                                                                      |
+|------------|----------------------------------------------------------------------------------|
+| AST-FR-001 | The system shall manage asset inventory records.                                 |
+| AST-FR-002 | The system shall assign assets to employees.                                     |
 | AST-FR-003 | The system shall record issue date, expected return date, condition, and status. |
-| AST-FR-004 | The system shall support return, loss, damage, and replacement workflows. |
-| AST-FR-005 | The system shall expose asset obligations in offboarding clearance. |
-| AST-FR-006 | The system shall audit asset lifecycle changes. |
+| AST-FR-004 | The system shall support return, loss, damage, and replacement workflows.        |
+| AST-FR-005 | The system shall expose asset obligations in offboarding clearance.              |
+| AST-FR-006 | The system shall audit asset lifecycle changes.                                  |
 
 ## 4. Cross-Module Workflow
 
