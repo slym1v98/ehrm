@@ -109,3 +109,8 @@ app/Modules/
 - No direct mutation of Employee from other modules
 - No direct mutation of Organization from other modules
 - Identity references Employee by id only
+
+
+## 15. Company Singleton
+
+Phase 1 treats company profile as singleton configuration, not a full Company aggregate/table. This keeps the single-tenant scope explicit and avoids premature multi-company modeling.

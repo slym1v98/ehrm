@@ -187,12 +187,143 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssetAssignmentResponse'
+
+  /interviews:
+    post:
+      tags: [Recruitment]
+      summary: Schedule interview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [candidate_id, requisition_id, scheduled_at]
+              properties:
+                candidate_id: {type: string, format: uuid}
+                requisition_id: {type: string, format: uuid}
+                scheduled_at: {type: string, format: date-time}
+                interviewer_ids:
+                  type: array
+                  items: {type: string, format: uuid}
+      responses:
+        '201': {description: Interview scheduled}
+  /interviews/{interview_id}/scorecards:
+    post:
+      tags: [Recruitment]
+      summary: Submit interview scorecard
+      parameters:
+        - name: interview_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200': {description: Scorecard submitted}
+  /offers:
+    post:
+      tags: [Recruitment]
+      summary: Send offer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [candidate_id, requisition_id, terms]
+              properties:
+                candidate_id: {type: string, format: uuid}
+                requisition_id: {type: string, format: uuid}
+                terms: {type: object, additionalProperties: true}
+      responses:
+        '201': {description: Offer created}
+  /offboarding-tasks/{offboarding_task_id}/complete:
+    post:
+      tags: [Offboarding]
+      summary: Complete offboarding task
+      parameters:
+        - name: offboarding_task_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Offboarding task completed}
+  /final-clearances:
+    post:
+      tags: [Offboarding]
+      summary: Issue final clearance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [offboarding_plan_id]
+              properties:
+                offboarding_plan_id: {type: string, format: uuid}
+                final_payroll_notes: {type: string, nullable: true}
+      responses:
+        '201': {description: Final clearance recorded}
+  /training-enrollments:
+    post:
+      tags: [Training]
+      summary: Enroll employee in training session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [training_session_id, employee_id]
+              properties:
+                training_session_id: {type: string, format: uuid}
+                employee_id: {type: string, format: uuid}
+      responses:
+        '201': {description: Enrollment created}
+  /training-results:
+    post:
+      tags: [Training]
+      summary: Record training result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [training_enrollment_id, result]
+              properties:
+                training_enrollment_id: {type: string, format: uuid}
+                result: {type: string}
+                score: {type: number, nullable: true}
+      responses:
+        '201': {description: Training result recorded}
+  /asset-returns:
+    post:
+      tags: [Assets]
+      summary: Return asset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [asset_assignment_id, condition_on_return]
+              properties:
+                asset_assignment_id: {type: string, format: uuid}
+                condition_on_return: {type: string}
+                notes: {type: string, nullable: true}
+      responses:
+        '201': {description: Asset return recorded}
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
+      bearerFormat: opaque
   parameters:
     CandidateId:
       name: candidate_id

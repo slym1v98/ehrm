@@ -206,3 +206,6 @@ Core domains stable
 - Full multi-tenant SaaS transformation
 - Full microservice decomposition
 - Global multi-country payroll localization pack
+
+
+Boundary note: Phase 4 Analytics is distinct from Phase 2 Reporting. Reporting remains operational and near-real-time; Analytics introduces derived snapshots, executive KPIs, and heavier asynchronous analytical runs.

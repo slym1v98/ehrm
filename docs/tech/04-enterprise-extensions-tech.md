@@ -92,3 +92,6 @@ app/Modules/
 - Masking policy unit tests
 - Export request approval flow tests
 - Archive reversibility/verification tests
+
+
+Boundary note: Phase 4 Analytics is distinct from Phase 2 Reporting. Reporting remains operational and near-real-time; Analytics introduces derived snapshots, executive KPIs, and heavier asynchronous analytical runs.

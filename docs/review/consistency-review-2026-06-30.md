@@ -143,3 +143,26 @@ The document set is **mostly coherent**. The biggest work left is:
 - make a few ownership/boundary decisions explicit
 
 After those fixes, the pack becomes much stronger as a source-of-truth for implementation.
+
+## 6. Resolution Log
+
+Date: 2026-06-30
+
+| Finding | Status | Resolution |
+| --- | --- | --- |
+| F-001 | Resolved | Added Phase 2 OpenAPI endpoints for leave policies, workflow templates, payroll approve, payslip publish, payroll adjustments. |
+| F-002 | Resolved | Added Phase 3 OpenAPI endpoints for interviews, scorecards, offers, offboarding task completion, final clearance, training enrollments/results, asset returns. |
+| F-003 | Resolved | Added Phase 4 OpenAPI endpoints for integration job status, mobile device revoke, masking policies, backup runs, shared jobs polling. |
+| F-004 | Resolved | Standardized v1 API contract on BearerAuth only; CookieAuth is now future optional SSR adapter note. |
+| F-005 | Resolved | Standardized permission catalog ownership under Identity BC and added ERD `permissions` catalog entry. |
+| F-006 | Resolved | Standardized tokens as identity-only; roles/data scopes resolved server-side per request. |
+| F-007 | Resolved | Fixed `UC-02.001` relation to reference `UC-02.012` for Send Notification. |
+| F-008 | Resolved | Added Phase 1 OpenAPI endpoints for permissions, data scopes, system settings. |
+| F-009 | Resolved | Added DDD persistence decomposition note for `RoleBinding` and `DataScopeAssignment`. |
+| F-010 | Resolved | Added singleton company note to DDD/ERD/Tech. |
+| F-011 | Resolved | Added shared `/jobs/{job_id}` polling endpoint to Phase 4 OpenAPI. |
+| F-012 | Not applicable | Current logical ERD no longer contains the reversed notification relationship. No change required. |
+| F-013 | Resolved | Changed OpenAPI `bearerFormat` from `JWT` to `opaque` to match Sanctum-style bearer tokens. |
+| F-014 | Resolved | Updated Phase 1 SRS wording to token-based primary auth with optional SSR session adapter. |
+| F-015 | Resolved | Added reporting-vs-analytics boundary notes to SRS/Tech Phase 2 and Phase 4. |
+| F-016 | Resolved | Clarified backup/DR evidence as operational evidence in logical ERD. |

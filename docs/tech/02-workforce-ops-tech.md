@@ -101,3 +101,6 @@ app/Modules/
 - Application tests with fake workflow engine and notification adapters
 - Integration tests with real Redis queues
 - Concurrency tests for payroll lock and attendance close
+
+
+Boundary note: Phase 2 Reporting covers operational reports and exports directly over transactional HR data. Phase 4 Analytics covers derived executive metrics, snapshots, and heavier analytical read models.

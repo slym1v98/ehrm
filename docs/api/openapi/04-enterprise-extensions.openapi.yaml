@@ -164,12 +164,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobAcceptedResponse'
+
+  /integration-jobs/{integration_job_id}:
+    get:
+      tags: [Integrations]
+      summary: Get integration job status
+      parameters:
+        - name: integration_job_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Integration job status}
+  /mobile-devices/{mobile_device_id}/revoke:
+    post:
+      tags: [Mobile]
+      summary: Revoke mobile device
+      parameters:
+        - name: mobile_device_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200': {description: Mobile device revoked}
+  /masking-policies:
+    post:
+      tags: [Compliance]
+      summary: Create masking policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, field_scope]
+              properties:
+                code: {type: string}
+                field_scope: {type: string}
+                rule_config: {type: object, additionalProperties: true}
+      responses:
+        '201': {description: Masking policy created}
+  /backup-runs:
+    post:
+      tags: [Operations]
+      summary: Record backup run
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [backup_type, status]
+              properties:
+                backup_type: {type: string}
+                status: {type: string}
+                evidence: {type: object, additionalProperties: true}
+      responses:
+        '201': {description: Backup run recorded}
+  /jobs/{job_id}:
+    get:
+      tags: [Operations]
+      summary: Poll shared async job
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
+      bearerFormat: opaque
   parameters:
     IdentityProviderId:
       name: identity_provider_id

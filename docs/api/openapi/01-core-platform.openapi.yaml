@@ -323,12 +323,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedAuditLogResponse'
+
+  /permissions:
+    get:
+      tags: [Roles]
+      summary: List permission catalog
+      responses:
+        '200':
+          description: Permission catalog
+          content:
+            application/json:
+              schema:
+                type: object
+  /data-scopes:
+    get:
+      tags: [Users]
+      summary: List data scope assignments
+      responses:
+        '200':
+          description: Data scope assignments
+          content:
+            application/json:
+              schema:
+                type: object
+  /system-settings:
+    get:
+      tags: [Configuration]
+      summary: List system settings
+      responses:
+        '200':
+          description: System settings
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      tags: [Configuration]
+      summary: Update system settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Settings updated
+          content:
+            application/json:
+              schema:
+                type: object
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
+      bearerFormat: opaque
   parameters:
     Page:
       name: page

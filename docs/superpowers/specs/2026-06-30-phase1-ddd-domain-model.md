@@ -98,7 +98,7 @@ Inter-context references use stable identifiers only. No context mutates another
 - `User` (Aggregate Root)
 - `Role` (Aggregate Root)
 
-`Permission` is a reference catalog. It does not need its own rich aggregate in Phase 1.
+`Permission` is an Identity-owned reference catalog. It does not need its own rich aggregate in Phase 1; it is persisted as a catalog table or seed data and mapped through `role_permissions`.
 
 ### 3.2 User Aggregate
 
@@ -165,7 +165,7 @@ Repositories:
 - `Department` (Aggregate Root)
 - `Position` (Aggregate Root)
 
-`Company` is a single enterprise reference in Phase 1, not a multi-tenant root.
+`Company` is a single-enterprise installation setting in Phase 1, not a multi-tenant root. It may be persisted as a singleton `system_settings` record or a small `company_profile` table later, but it is not a bounded-context aggregate in Phase 1.
 
 ### 4.2 Branch Aggregate
 

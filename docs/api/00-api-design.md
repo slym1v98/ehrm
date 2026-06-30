@@ -28,9 +28,11 @@ This document defines the API design conventions for the eHRM platform. Detailed
 ### 4.1 Security Schemes
 
 - `BearerAuth`: bearer token for SPA/mobile/API clients.
-- `CookieAuth`: server-side session for SSR if used.
+- `CookieAuth` is not part of the primary v1 contract; it remains an optional future SSR adapter.
 
 ### 4.2 Authorization Model
+
+- Access tokens carry only `user_id`; permissions and data scopes are resolved server-side per request.
 
 - Permission naming: `{module}.{action}`.
 - Data scope is evaluated separately: `self`, `direct_reports`, `department`, `branch`, `all_company`.

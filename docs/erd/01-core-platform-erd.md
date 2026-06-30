@@ -40,6 +40,7 @@ erDiagram
 | --- | --- | --- |
 | users | Identity | Login account. |
 | roles | Identity | Role catalog. |
+| permissions | Identity | Permission catalog. |
 | role_permissions | Identity | Role permission mapping. |
 | user_roles | Identity | User role assignment. |
 | data_scope_assignments | Identity | Self/manager/department/branch/all-company scope. |
@@ -83,6 +84,8 @@ Delete policy: disable only; no physical delete.
 
 ### roles / role_permissions / user_roles
 
+`permissions`: `id`, `code`, `module`, `action`, `description`, `active`.
+
 `roles`: `id`, `code`, `name`, `description`, `active`.
 
 `role_permissions`: `id`, `role_id`, `permission_code`, `created_at`.
@@ -91,6 +94,7 @@ Delete policy: disable only; no physical delete.
 
 Constraints/indexes:
 
+- unique `permissions.code`
 - unique `roles.code`
 - unique `role_permissions(role_id, permission_code)`
 - unique active `user_roles(user_id, role_id)` where `revoked_at is null`
@@ -277,3 +281,8 @@ Partition candidate: yearly.
 - Contract and document are separate tables/aggregates to avoid an oversized employee row/model.
 - Audit is append-only.
 - MinIO file storage is represented by `file_objects` metadata only.
+
+
+## 6. Company Singleton Note
+
+Phase 1 is a single-enterprise installation. Company profile is treated as singleton configuration (`system_settings`) rather than a full `companies` aggregate/table. If multi-company support is introduced later, promote it to an explicit `companies` table and migrate branch ownership.

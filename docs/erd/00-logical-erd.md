@@ -85,6 +85,8 @@ erDiagram
   RETENTION_POLICIES ||--o{ RETENTION_TARGETS : applies
 ```
 
+Note: backup and DR evidence are modeled in Phase 4 operations tables; they are not directly linked to `audit_logs` in the per-phase ERD and should be treated as operational evidence records unless a later compliance feature formalizes that relationship.
+
 ## 4. Bounded Context Ownership
 
 | BC | Key Tables |

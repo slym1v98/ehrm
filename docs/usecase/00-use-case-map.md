@@ -146,7 +146,7 @@ Format:
 
 ## 5. Use Case Relationships
 
-- `UC-02.001` (Apply for Leave) invokes `UC-02.011` (Send Notification) after submission.
+- `UC-02.001` (Apply for Leave) invokes `UC-02.012` (Send Notification) after submission.
 - `UC-02.002` (Approve Leave) invokes `UC-02.008` (Calculate Attendance) to update timesheet.
 - `UC-02.004` (Run Monthly Payroll) depends on `UC-02.007` (Close Attendance Period).
 - `UC-03.001` (Hire Candidate) invokes `UC-01.001` (Create Employee) + `UC-03.009` (Create Onboarding Plan).

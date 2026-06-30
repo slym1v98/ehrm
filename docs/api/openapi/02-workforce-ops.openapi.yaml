@@ -261,12 +261,116 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobStatusResponse'
+
+  /leave-policies:
+    post:
+      tags: [Leave]
+      summary: Configure leave policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [leave_type_id]
+              properties:
+                leave_type_id: {type: string, format: uuid}
+                accrual_rule: {type: object, additionalProperties: true}
+                carry_forward_rule: {type: object, additionalProperties: true}
+                expiry_rule: {type: object, additionalProperties: true}
+      responses:
+        '201':
+          description: Leave policy created
+          content:
+            application/json:
+              schema:
+                type: object
+  /workflow-templates:
+    post:
+      tags: [Workflow]
+      summary: Create workflow template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [module, name, steps]
+              properties:
+                module: {type: string}
+                name: {type: string}
+                steps:
+                  type: array
+                  items: {type: object, additionalProperties: true}
+                conditions:
+                  type: array
+                  items: {type: object, additionalProperties: true}
+      responses:
+        '201':
+          description: Workflow template created
+          content:
+            application/json:
+              schema:
+                type: object
+  /payroll-periods/{payroll_period_id}/approve:
+    post:
+      tags: [Payroll]
+      summary: Approve payroll period
+      parameters:
+        - $ref: '#/components/parameters/PayrollPeriodId'
+      responses:
+        '200':
+          description: Payroll period approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollPeriodResponse'
+  /payroll-periods/{payroll_period_id}/publish-payslips:
+    post:
+      tags: [Payroll]
+      summary: Publish payslips for locked payroll period
+      parameters:
+        - $ref: '#/components/parameters/PayrollPeriodId'
+      responses:
+        '202':
+          description: Payslip publication queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobAcceptedResponse'
+  /payroll-entries/{payroll_entry_id}/adjustments:
+    post:
+      tags: [Payroll]
+      summary: Adjust payroll entry before approval
+      parameters:
+        - name: payroll_entry_id
+          in: path
+          required: true
+          schema: {type: string, format: uuid}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [payroll_component_id, amount, reason]
+              properties:
+                payroll_component_id: {type: string, format: uuid}
+                amount: {type: number}
+                reason: {type: string}
+      responses:
+        '201':
+          description: Payroll adjustment created
+          content:
+            application/json:
+              schema:
+                type: object
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
+      bearerFormat: opaque
   parameters:
     Page:
       name: page

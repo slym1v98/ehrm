@@ -103,7 +103,7 @@ The system shall provide secure user authentication, session management, role as
 | ID         | Requirement                                                                                                                              |
 |------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | IAM-FR-001 | The system shall allow authorized admins to create, update, disable, and reactivate user accounts.                                       |
-| IAM-FR-002 | The system shall support login and logout using secure session or token-based authentication.                                            |
+| IAM-FR-002 | The system shall support login and logout using token-based authentication primary (Sanctum bearer tokens); session optional for SSR if needed.                                            |
 | IAM-FR-003 | The system shall enforce password policy for local accounts.                                                                             |
 | IAM-FR-004 | The system shall support role assignment to users.                                                                                       |
 | IAM-FR-005 | The system shall support permission definitions grouped by module and action.                                                            |

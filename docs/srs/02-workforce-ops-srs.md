@@ -415,3 +415,6 @@ Admin/HR configures shifts, leave types, workflow, payroll settings
 - Performance-linked compensation rules
 - Mobile push experience
 - Advanced analytics and forecasting
+
+
+Boundary note: Phase 2 Reporting covers operational reports and exports directly over transactional HR data. Phase 4 Analytics covers derived executive metrics, snapshots, and heavier analytical read models.
