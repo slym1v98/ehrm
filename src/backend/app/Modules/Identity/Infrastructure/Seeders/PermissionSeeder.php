@@ -28,6 +28,16 @@ class PermissionSeeder extends Seeder
             ['identity.role.grant_permission', 'role.grant_permission', 'Grant permission to role'],
             ['identity.role.revoke_permission', 'role.revoke_permission', 'Revoke permission from role'],
             ['identity.permission.list', 'permission.list', 'List permissions'],
+            ['configuration.lookup.list', 'lookup.list', 'List lookup groups'],
+            ['configuration.lookup.manage', 'lookup.manage', 'Manage lookup groups'],
+            ['configuration.code_generation.list', 'code_generation.list', 'List code generation rules'],
+            ['configuration.code_generation.manage', 'code_generation.manage', 'Manage code generation rules'],
+            ['configuration.setting.list', 'setting.list', 'List system settings'],
+            ['configuration.setting.manage', 'setting.manage', 'Manage system settings'],
+            ['configuration.holiday.list', 'holiday.list', 'List holiday calendars'],
+            ['configuration.holiday.manage', 'holiday.manage', 'Manage holiday calendars'],
+            ['configuration.notification_threshold.list', 'notification_threshold.list', 'List notification thresholds'],
+            ['configuration.notification_threshold.manage', 'notification_threshold.manage', 'Manage notification thresholds'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

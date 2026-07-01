@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Modules\Configuration\Infrastructure\Seeders\ConfigurationSeeder;
 use App\Modules\Identity\Infrastructure\Seeders\AdminUserSeeder;
 use App\Modules\Identity\Infrastructure\Seeders\PermissionSeeder;
 use App\Modules\Identity\Infrastructure\Seeders\RoleSeeder;
@@ -15,6 +16,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             AdminUserSeeder::class,
+            ConfigurationSeeder::class,
         ]);
     }
 }

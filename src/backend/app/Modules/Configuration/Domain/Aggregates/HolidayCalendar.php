@@ -11,7 +11,6 @@ class HolidayCalendar
         public readonly string $code,
         public readonly string $name,
         public readonly int $year,
-        public readonly string $country,
         public readonly bool $active,
         public readonly array $holidays
     ) {}
@@ -23,7 +22,6 @@ class HolidayCalendar
             code: $model->code,
             name: $model->name,
             year: $model->year,
-            country: $model->country,
             active: $model->active,
             holidays: $model->holidays->map(fn ($holiday) => [
                 'id' => $holiday->id,
