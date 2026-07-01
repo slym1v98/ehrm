@@ -28,6 +28,7 @@ class PermissionSeeder extends Seeder
             ['identity.role.grant_permission', 'role.grant_permission', 'Grant permission to role'],
             ['identity.role.revoke_permission', 'role.revoke_permission', 'Revoke permission from role'],
             ['identity.permission.list', 'permission.list', 'List permissions'],
+            ['audit.log.list', 'log.list', 'List audit logs'],
             ['configuration.lookup.list', 'lookup.list', 'List lookup groups'],
             ['configuration.lookup.manage', 'lookup.manage', 'Manage lookup groups'],
             ['configuration.code_generation.list', 'code_generation.list', 'List code generation rules'],
@@ -44,7 +45,7 @@ class PermissionSeeder extends Seeder
             PermissionModel::updateOrCreate(
                 ['code' => $code],
                 [
-                    'module' => 'identity',
+                    'module' => str($code)->before('.')->toString(),
                     'action' => $action,
                     'description' => $description,
                     'active' => true,
