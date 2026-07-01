@@ -1,4 +1,4 @@
-# Use Case Map — eHRM
+# Use Case Map — iHRM
 
 Version: 0.1  
 Date: 2026-06-30  
@@ -6,7 +6,7 @@ Status: Draft for review
 
 ## 1. Purpose
 
-This document provides a cross-phase use case inventory for the eHRM system. Detailed use cases live in phase-specific files:
+This document provides a cross-phase use case inventory for the iHRM system. Detailed use cases live in phase-specific files:
 
 - `01-core-platform-uc.md`
 - `02-workforce-ops-uc.md`

@@ -6,7 +6,7 @@ Status: Draft for review
 
 ## 1. Purpose
 
-This document defines the technical architecture and runtime model for the eHRM platform. Detailed per-phase technical design lives in:
+This document defines the technical architecture and runtime model for the iHRM platform. Detailed per-phase technical design lives in:
 
 - `01-core-platform-tech.md`
 - `02-workforce-ops-tech.md`

@@ -1,146 +1,94 @@
-name: ehrm
+name: ihrm
+
 services:
   app:
     build:
-      context: /Users/nofine/Workspace/phpProjects/eHRM
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: docker/php/Dockerfile
+    working_dir: /app/src/backend
     depends_on:
       db:
         condition: service_healthy
-        required: true
       minio:
         condition: service_healthy
-        required: true
       redis:
         condition: service_started
-        required: true
+    env_file:
+      - .env
     environment:
+      APP_ENV: ${APP_ENV:-local}
       DB_CONNECTION: pgsql
-      DB_DATABASE: ehrm
       DB_HOST: db
-      DB_PASSWORD: ehrm
-      DB_PORT: "5432"
-      DB_USERNAME: ehrm
-      MINIO_ACCESS_KEY: ehrm
-      MINIO_BUCKET: ehrm-documents
-      MINIO_ENDPOINT: http://minio:9000
-      MINIO_SECRET_KEY: ehrm_secret
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE:-ihrm}
+      DB_USERNAME: ${DB_USERNAME:-ihrm}
+      DB_PASSWORD: ${DB_PASSWORD:-ihrm}
       REDIS_HOST: redis
-      REDIS_PORT: "6379"
-    networks:
-      default: null
+      REDIS_PORT: 6379
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ihrm}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ihrm_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-ihrm-documents}
     ports:
-      - mode: ingress
-        target: 8000
-        published: "8000"
-        protocol: tcp
+      - "${APP_PORT:-8000}:8000"
     volumes:
-      - type: bind
-        source: /Users/nofine/Workspace/phpProjects/eHRM
-        target: /app
-        bind: {}
-  db:
-    environment:
-      POSTGRES_DB: ehrm
-      POSTGRES_PASSWORD: ehrm
-      POSTGRES_USER: ehrm
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - pg_isready -U ehrm
-      timeout: 3s
-      interval: 5s
-      retries: 5
-    image: postgres:16-alpine
-    networks:
-      default: null
-    ports:
-      - mode: ingress
-        target: 5432
-        published: "5432"
-        protocol: tcp
-    volumes:
-      - type: volume
-        source: pgdata
-        target: /var/lib/postgresql/data
-        volume: {}
+      - .:/app
+
   frontend:
     build:
-      context: /Users/nofine/Workspace/phpProjects/eHRM
-      dockerfile: Dockerfile.frontend
+      context: .
+      dockerfile: docker/nextjs/Dockerfile
+    working_dir: /app/src/frontend
     depends_on:
-      app:
-        condition: service_started
-        required: true
-    networks:
-      default: null
+      - app
     ports:
-      - mode: ingress
-        target: 3000
-        published: "3000"
-        protocol: tcp
+      - "${FRONTEND_PORT:-3000}:3000"
     volumes:
-      - type: bind
-        source: /Users/nofine/Workspace/phpProjects/eHRM/frontend
-        target: /app
-        bind: {}
-  minio:
-    command:
-      - server
-      - --console-address
-      - :9001
-      - /data
+      - .:/app
+
+  db:
+    image: postgres:16-alpine
     environment:
-      MINIO_ROOT_PASSWORD: ehrm_secret
-      MINIO_ROOT_USER: ehrm
+      POSTGRES_DB: ${DB_DATABASE:-ihrm}
+      POSTGRES_USER: ${DB_USERNAME:-ihrm}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ihrm}
     healthcheck:
-      test:
-        - CMD
-        - mc
-        - ready
-        - local
-      timeout: 3s
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ihrm}"]
       interval: 5s
+      timeout: 3s
       retries: 5
-    image: minio/minio:latest
-    networks:
-      default: null
     ports:
-      - mode: ingress
-        target: 9000
-        published: "9000"
-        protocol: tcp
-      - mode: ingress
-        target: 9001
-        published: "9001"
-        protocol: tcp
+      - "${DB_PORT:-5432}:5432"
     volumes:
-      - type: volume
-        source: miniodata
-        target: /data
-        volume: {}
+      - pgdata:/var/lib/postgresql/data
+
   redis:
-    healthcheck:
-      test:
-        - CMD
-        - redis-cli
-        - ping
-      timeout: 3s
-      interval: 5s
-      retries: 5
     image: redis:7-alpine
-    networks:
-      default: null
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     ports:
-      - mode: ingress
-        target: 6379
-        published: "6379"
-        protocol: tcp
-networks:
-  default:
-    name: ehrm_default
+      - "${REDIS_PORT:-6379}:6379"
+
+  minio:
+    image: minio/minio:latest
+    command: server --console-address ":9001" /data
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-ihrm}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-ihrm_secret}
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    ports:
+      - "${MINIO_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - miniodata:/data
+
 volumes:
-  miniodata:
-    name: ehrm_miniodata
   pgdata:
-    name: ehrm_pgdata
+  miniodata:

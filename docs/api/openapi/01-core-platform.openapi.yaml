@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: eHRM Core Platform API
+  title: iHRM Core Platform API
   version: 1.0.0
   description: Phase 1 API specification for Identity, Organization, Employee Master, Contract, Document, Configuration, and Audit.
 servers:

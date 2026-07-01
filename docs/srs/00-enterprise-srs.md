@@ -1,4 +1,4 @@
-# Enterprise Software Requirements Specification — eHRM
+# Enterprise Software Requirements Specification — iHRM (IntrustDSS Human Resource Management)
 
 Version: 0.1  
 Date: 2026-06-30  
@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the enterprise-level software requirements for the eHRM system. It is the controlling specification for scope, architecture assumptions, stakeholder needs, cross-module requirements, non-functional requirements, security posture, data governance, and phased delivery.
+This document defines the enterprise-level software requirements for the iHRM system. It is the controlling specification for scope, architecture assumptions, stakeholder needs, cross-module requirements, non-functional requirements, security posture, data governance, and phased delivery.
 
 Detailed requirements are split into phase-specific SRS documents:
 
@@ -21,7 +21,7 @@ This document intentionally does not describe every screen, field, endpoint, or 
 
 ### 1.2 Product Scope
 
-The product is a single-tenant eHRM platform for one enterprise with multiple branches, offices, departments, teams, job positions, reporting lines, and HR operational workflows.
+The product is a single-tenant iHRM platform for one enterprise with multiple branches, offices, departments, teams, job positions, reporting lines, and HR operational workflows.
 
 The system supports the full employee lifecycle:
 
@@ -81,7 +81,7 @@ This SRS is intended for:
 
 ### 2.1 Product Perspective
 
-The eHRM platform is an internal enterprise business application. It centralizes HR master data, workforce operations, payroll support, talent lifecycle workflows, and reporting.
+The iHRM platform is an internal enterprise business application. It centralizes HR master data, workforce operations, payroll support, talent lifecycle workflows, and reporting.
 
 The product is API-first:
 

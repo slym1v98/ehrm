@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the software requirements for Phase 3 of the eHRM system: Talent Lifecycle. Phase 3 extends the platform from workforce operations into talent acquisition, employee development, and controlled exit workflows.
+This document defines the software requirements for Phase 3 of the iHRM system: Talent Lifecycle. Phase 3 extends the platform from workforce operations into talent acquisition, employee development, and controlled exit workflows.
 
 ### 1.2 Scope
 

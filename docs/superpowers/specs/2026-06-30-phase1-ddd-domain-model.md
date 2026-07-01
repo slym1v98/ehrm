@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the Domain-Driven Design model for Phase 1 (Core Platform) of the eHRM system. It establishes subdomain classification, bounded contexts, aggregate boundaries, value objects, domain events, and application-layer shape.
+This document defines the Domain-Driven Design model for Phase 1 (Core Platform) of the iHRM system. It establishes subdomain classification, bounded contexts, aggregate boundaries, value objects, domain events, and application-layer shape.
 
 Goals:
 

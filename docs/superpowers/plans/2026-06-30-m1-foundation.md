@@ -21,7 +21,7 @@
 - Modify: `.env.dev.example`
 - Modify: `.env.prod.example`
 
-- [ ] **Step 1: Write Dockerfile for Laravel backend**
+- [x] **Step 1: Write Dockerfile for Laravel backend**
 
 Update/verify `docker/php/Dockerfile`:
 
@@ -46,7 +46,7 @@ EXPOSE 8000
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
 ```
 
-- [ ] **Step 2: Write Dockerfile for NextJS frontend**
+- [x] **Step 2: Write Dockerfile for NextJS frontend**
 
 Update/verify `docker/nextjs/Dockerfile`:
 
@@ -57,12 +57,12 @@ EXPOSE 3000
 CMD ["sh", "-c", "npm install && npm run dev"]
 ```
 
-- [ ] **Step 3: Update docker-compose.yml**
+- [x] **Step 3: Update docker-compose.yml**
 
 Update `docker-compose.yml`:
 
 ```yaml
-name: ehrm
+name: ihrm
 
 services:
   app:
@@ -84,15 +84,15 @@ services:
       DB_CONNECTION: pgsql
       DB_HOST: db
       DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE:-ehrm}
-      DB_USERNAME: ${DB_USERNAME:-ehrm}
-      DB_PASSWORD: ${DB_PASSWORD:-ehrm}
+      DB_DATABASE: ${DB_DATABASE:-ihrm}
+      DB_USERNAME: ${DB_USERNAME:-ihrm}
+      DB_PASSWORD: ${DB_PASSWORD:-ihrm}
       REDIS_HOST: redis
       REDIS_PORT: 6379
       MINIO_ENDPOINT: http://minio:9000
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ehrm}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ehrm_secret}
-      MINIO_BUCKET: ${MINIO_BUCKET:-ehrm-documents}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ihrm}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ihrm_secret}
+      MINIO_BUCKET: ${MINIO_BUCKET:-ihrm-documents}
     ports:
       - "${APP_PORT:-8000}:8000"
     volumes:
@@ -113,11 +113,11 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-ehrm}
-      POSTGRES_USER: ${DB_USERNAME:-ehrm}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-ehrm}
+      POSTGRES_DB: ${DB_DATABASE:-ihrm}
+      POSTGRES_USER: ${DB_USERNAME:-ihrm}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ihrm}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ehrm}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ihrm}"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -140,8 +140,8 @@ services:
     image: minio/minio:latest
     command: server --console-address ":9001" /data
     environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-ehrm}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-ehrm_secret}
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-ihrm}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-ihrm_secret}
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
       interval: 5s
@@ -158,7 +158,7 @@ volumes:
   miniodata:
 ```
 
-- [ ] **Step 4: Commit**
+- [~] **Step 4: Commit**
 
 ```bash
 git add docker/php/Dockerfile docker/nextjs/Dockerfile docker-compose.yml .env.example .env.local.example .env.dev.example .env.prod.example
@@ -173,7 +173,7 @@ git commit -m "infra: add Docker Compose with Laravel, NextJS, PostgreSQL, Redis
 - Run: `composer create-project` inside `src/backend` (inside container)
 - Create: various Laravel config files
 
-- [ ] **Step 1: Create Laravel project**
+- [~] **Step 1: Create Laravel project**
 
 ```bash
 docker compose run --rm app composer create-project laravel/laravel:^12.0 .
@@ -181,7 +181,7 @@ docker compose run --rm app composer create-project laravel/laravel:^12.0 .
 
 Expected: `src/backend/artisan` binary exists, `src/backend/app/` directory present.
 
-- [ ] **Step 2: Install Sanctum for API auth**
+- [~] **Step 2: Install Sanctum for API auth**
 
 ```bash
 docker compose run --rm app composer require laravel/sanctum
@@ -190,7 +190,7 @@ docker compose run --rm app php artisan install:api --no-interaction
 
 Verify `src/backend/routes/api.php` exists.
 
-- [ ] **Step 3: Create module base structure**
+- [x] **Step 3: Create module base structure**
 
 Create directories:
 
@@ -200,7 +200,7 @@ docker compose run --rm app sh -lc "mkdir -p app/Modules/Shared/{Http/Middleware
 
 Verify by listing: `ls -R src/backend/app/Modules/`
 
-- [ ] **Step 4: Commit**
+- [~] **Step 4: Commit**
 
 ```bash
 git add src/backend/composer.json src/backend/composer.lock src/backend/app/Modules src/backend/config src/backend/routes
@@ -218,7 +218,7 @@ git commit -m "infra: scaffold Laravel 12 with Sanctum and module structure"
 - Create: `src/backend/tests/Unit/Modules/Shared/ErrorResourceTest.php`
 - Modify: `bootstrap/app.php`
 
-- [ ] **Step 1: Write AppException base class**
+- [x] **Step 1: Write AppException base class**
 
 Creates `src/backend/app/Modules/Shared/Exceptions/AppException.php`:
 
@@ -245,7 +245,7 @@ abstract class AppException extends Exception
 }
 ```
 
-- [ ] **Step 2: Write ValidationException**
+- [x] **Step 2: Write ValidationException**
 
 Creates `src/backend/app/Modules/Shared/Exceptions/ValidationException.php`:
 
@@ -271,7 +271,7 @@ class ValidationException extends AppException
 }
 ```
 
-- [ ] **Step 3: Write ErrorResource**
+- [x] **Step 3: Write ErrorResource**
 
 Creates `src/backend/app/Modules/Shared/Http/Resources/ErrorResource.php`:
 
@@ -299,7 +299,7 @@ class ErrorResource extends JsonResource
 }
 ```
 
-- [ ] **Step 4: Register global exception handler in bootstrap/app.php**
+- [x] **Step 4: Register global exception handler in bootstrap/app.php**
 
 Modify `bootstrap/app.php`:
 
@@ -327,7 +327,7 @@ Modify `bootstrap/app.php`:
  })
 ```
 
-- [ ] **Step 5: Write the failing test**
+- [x] **Step 5: Write the failing test**
 
 Creates `src/backend/tests/Unit/Modules/Shared/ErrorResourceTest.php`:
 
@@ -355,7 +355,7 @@ test('validation error resource returns structured error', function () {
 });
 ```
 
-- [ ] **Step 6: Run test to verify it fails**
+- [~] **Step 6: Run test to verify it fails**
 
 ```bash
 docker compose run --rm app php artisan test tests/Unit/Modules/Shared/ErrorResourceTest.php
@@ -363,7 +363,7 @@ docker compose run --rm app php artisan test tests/Unit/Modules/Shared/ErrorReso
 
 Expected: PASS (Pest test should pass after writing the classes).
 
-- [ ] **Step 7: Commit**
+- [~] **Step 7: Commit**
 
 ```bash
 git add src/backend/app/Modules/Shared/ src/backend/tests/Unit/Modules/Shared/
@@ -379,7 +379,7 @@ git commit -m "feat: add shared error envelope with structured error response"
 - Create: `src/backend/app/Modules/Shared/Http/Requests/PaginatedRequest.php`
 - Create: `src/backend/tests/Unit/Modules/Shared/PaginatedCollectionTest.php`
 
-- [ ] **Step 1: Write PaginatedRequest**
+- [x] **Step 1: Write PaginatedRequest**
 
 Creates `src/backend/app/Modules/Shared/Http/Requests/PaginatedRequest.php`:
 
@@ -413,7 +413,7 @@ class PaginatedRequest extends FormRequest
 }
 ```
 
-- [ ] **Step 2: Write PaginatedCollection**
+- [x] **Step 2: Write PaginatedCollection**
 
 Creates `src/backend/app/Modules/Shared/Http/Resources/PaginatedCollection.php`:
 
@@ -449,7 +449,7 @@ class PaginatedCollection extends ResourceCollection
 }
 ```
 
-- [ ] **Step 3: Write test**
+- [x] **Step 3: Write test**
 
 Creates `src/backend/tests/Unit/Modules/Shared/PaginatedCollectionTest.php`:
 
@@ -483,7 +483,7 @@ test('paginated collection returns correct meta', function () {
 });
 ```
 
-- [ ] **Step 4: Run tests**
+- [~] **Step 4: Run tests**
 
 ```bash
 docker compose run --rm app php artisan test tests/Unit/Modules/Shared/PaginatedCollectionTest.php
@@ -491,7 +491,7 @@ docker compose run --rm app php artisan test tests/Unit/Modules/Shared/Paginated
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [~] **Step 5: Commit**
 
 ```bash
 git add src/backend/app/Modules/Shared/ src/backend/tests/Unit/Modules/Shared/
@@ -507,7 +507,7 @@ git commit -m "feat: add paginated request trait and paginated collection resour
 - Create: `src/backend/tests/Feature/Modules/Shared/AuthMiddlewareTest.php`
 - Modify: `bootstrap/app.php`
 
-- [ ] **Step 1: Write ForceJsonMiddleware**
+- [x] **Step 1: Write ForceJsonMiddleware**
 
 Creates `src/backend/app/Modules/Shared/Http/Middleware/ForceJsonMiddleware.php`:
 
@@ -529,7 +529,7 @@ class ForceJsonMiddleware
 }
 ```
 
-- [ ] **Step 2: Register middleware group in bootstrap/app.php**
+- [x] **Step 2: Register middleware group in bootstrap/app.php**
 
 ```php
  ->withMiddleware(function (Middleware $middleware) {
@@ -539,7 +539,7 @@ class ForceJsonMiddleware
  })
 ```
 
-- [ ] **Step 3: Write auth middleware test**
+- [x] **Step 3: Write auth middleware test**
 
 Creates `src/backend/tests/Feature/Modules/Shared/AuthMiddlewareTest.php`:
 
@@ -554,7 +554,7 @@ test('unauthenticated request returns 401', function () {
 });
 ```
 
-- [ ] **Step 4: Run test**
+- [~] **Step 4: Run test**
 
 ```bash
 docker compose run --rm app php artisan test tests/Feature/Modules/Shared/AuthMiddlewareTest.php
@@ -562,7 +562,7 @@ docker compose run --rm app php artisan test tests/Feature/Modules/Shared/AuthMi
 
 Expected: PASS. Sanctum protects `api` routes by default; 401 response format should match `ErrorResource`.
 
-- [ ] **Step 5: Commit**
+- [~] **Step 5: Commit**
 
 ```bash
 git add src/backend/app/Modules/Shared/ src/backend/tests/Feature/Modules/Shared/
@@ -576,7 +576,7 @@ git commit -m "feat: add Sanctum auth middleware and 401 error response"
 **Files:**
 - Create: `src/frontend/` from `create-next-app`
 
-- [ ] **Step 1: Create NextJS project**
+- [~] **Step 1: Create NextJS project**
 
 ```bash
 docker compose run --rm frontend sh -lc "cd /app/src/frontend && npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --use-npm"
@@ -584,7 +584,7 @@ docker compose run --rm frontend sh -lc "cd /app/src/frontend && npx create-next
 
 Expected: `src/frontend/package.json`, `src/frontend/src/app/page.tsx` exist.
 
-- [ ] **Step 2: Install shadcn/ui**
+- [~] **Step 2: Install shadcn/ui**
 
 ```bash
 docker compose run --rm frontend sh -lc "cd /app/src/frontend && npx shadcn@latest init -d"
@@ -596,7 +596,7 @@ Add dependencies:
 docker compose run --rm frontend sh -lc "cd /app/src/frontend && npx shadcn@latest add button card input label separator table form"
 ```
 
-- [ ] **Step 3: Create API client module**
+- [x] **Step 3: Create API client module**
 
 Creates `src/frontend/src/lib/api-client.ts`:
 
@@ -651,7 +651,7 @@ export const api = new ApiClient();
 export type { ApiResponse, ApiError };
 ```
 
-- [ ] **Step 4: Create login page structure**
+- [x] **Step 4: Create login page structure**
 
 Creates `src/frontend/src/app/login/page.tsx`:
 
@@ -665,7 +665,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-96">
-        <CardHeader><CardTitle>eHRM Login</CardTitle></CardHeader>
+        <CardHeader><CardTitle>iHRM Login</CardTitle></CardHeader>
         <CardContent>
           <form className="space-y-4">
             <Input type="email" placeholder="Email" />
@@ -679,7 +679,7 @@ export default function LoginPage() {
 }
 ```
 
-- [ ] **Step 5: Create auth context**
+- [x] **Step 5: Create auth context**
 
 Creates `src/frontend/src/lib/auth-context.tsx`:
 
@@ -721,7 +721,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export const useAuth = () => useContext(AuthContext);
 ```
 
-- [ ] **Step 6: Commit**
+- [~] **Step 6: Commit**
 
 ```bash
 git add src/frontend/
@@ -735,7 +735,7 @@ git commit -m "feat: scaffold NextJS frontend with shadcn/ui and API client"
 **Files:**
 - Create: `.github/workflows/ci.yml`
 
-- [ ] **Step 1: Write CI workflow**
+- [x] **Step 1: Write CI workflow**
 
 Creates `.github/workflows/ci.yml`:
 
@@ -749,9 +749,9 @@ jobs:
     services:
       db:
         image: postgres:16-alpine
-        env: { POSTGRES_DB: ehrm_test, POSTGRES_USER: ehrm, POSTGRES_PASSWORD: ehrm }
+        env: { POSTGRES_DB: ihrm_test, POSTGRES_USER: ihrm, POSTGRES_PASSWORD: ihrm }
         options: >-
-          --health-cmd pg_isready -U ehrm
+          --health-cmd pg_isready -U ihrm
           --health-interval 5s
           --health-timeout 3s
           --health-retries 5
@@ -788,7 +788,7 @@ jobs:
         run: npm run lint
 ```
 
-- [ ] **Step 2: Commit**
+- [~] **Step 2: Commit**
 
 ```bash
 git add .github/

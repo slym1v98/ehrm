@@ -6,7 +6,7 @@ Status: Draft for review
 
 ## 1. Purpose
 
-This document defines the API design conventions for the eHRM platform. Detailed OpenAPI 3.1 specs live in `docs/api/openapi/01-core-platform.openapi.yaml` through `docs/api/openapi/04-enterprise-extensions.openapi.yaml`.
+This document defines the API design conventions for the iHRM platform. Detailed OpenAPI 3.1 specs live in `docs/api/openapi/01-core-platform.openapi.yaml` through `docs/api/openapi/04-enterprise-extensions.openapi.yaml`.
 
 ## 2. Design Principles
 

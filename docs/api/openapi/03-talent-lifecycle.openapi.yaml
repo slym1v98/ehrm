@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: eHRM Talent Lifecycle API
+  title: iHRM Talent Lifecycle API
   version: 1.0.0
   description: Phase 3 API specification for Recruitment, Onboarding, Offboarding, Performance, Training, and Asset.
 servers:

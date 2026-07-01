@@ -1,8 +1,13 @@
 <?php
 
+use App\Modules\Shared\Exceptions\AppException;
+use App\Modules\Shared\Exceptions\ValidationException as SharedValidationException;
+use App\Modules\Shared\Http\Middleware\ForceJsonMiddleware;
+use App\Modules\Shared\Http\Resources\ErrorResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,8 +17,29 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->api(prepend: [
+            ForceJsonMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (AppException $exception, $request) {
+            return response()->json(
+                (new ErrorResource($exception))->toArray($request),
+                $exception->getHttpStatus(),
+            );
+        });
+
+        $exceptions->render(function (ValidationException $exception, $request) {
+            $appException = new SharedValidationException(
+                details: collect($exception->errors())->map(fn ($messages, $field) => [
+                    'field' => $field,
+                    'message' => implode('; ', $messages),
+                ])->values()->toArray(),
+            );
+
+            return response()->json(
+                (new ErrorResource($appException))->toArray($request),
+                422,
+            );
+        });
     })->create();

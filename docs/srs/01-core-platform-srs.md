@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the software requirements for Phase 1 of the eHRM system: Core Platform. Phase 1 establishes the data, security, configuration, and audit foundation required by all later phases.
+This document defines the software requirements for Phase 1 of the iHRM system: Core Platform. Phase 1 establishes the data, security, configuration, and audit foundation required by all later phases.
 
 ### 1.2 Scope
 

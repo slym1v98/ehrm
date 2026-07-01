@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the software requirements for Phase 2 of the eHRM system: Workforce Operations. Phase 2 manages daily workforce execution using the trusted identity, organization, employee, contract, configuration, and audit foundations from Phase 1.
+This document defines the software requirements for Phase 2 of the iHRM system: Workforce Operations. Phase 2 manages daily workforce execution using the trusted identity, organization, employee, contract, configuration, and audit foundations from Phase 1.
 
 ### 1.2 Scope
 

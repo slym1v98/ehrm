@@ -6,11 +6,11 @@ Dưới đây là phân tích chi tiết, bẻ nhỏ bài toán từ kiến trú
 
 ## I. Phân tích Kiến trúc Hệ thống & Yêu cầu Kỹ thuật Nền tảng (Cross-Cutting Concerns)
 
-Trước khi đi vào từng module nghiệp vụ, hệ thống eHRM cần một "bộ khung" vững chắc để xử lý các bài toán dữ liệu lớn, bảo mật và khả năng mở rộng (scalability).
+Trước khi đi vào từng module nghiệp vụ, hệ thống iHRM cần một "bộ khung" vững chắc để xử lý các bài toán dữ liệu lớn, bảo mật và khả năng mở rộng (scalability).
 
 ### 1. Phân quyền phức tạp (Dynamic RBAC & Matrix Permission)
 
-* **Yêu cầu cốt lõi:** Không chỉ là phân quyền theo Vai trò (Role-based), eHRM đòi hỏi phân quyền theo **Trục dọc (Phòng ban/Chi nhánh)** và **Trục ngang (Cấp bậc quản lý)**.
+* **Yêu cầu cốt lõi:** Không chỉ là phân quyền theo Vai trò (Role-based), iHRM đòi hỏi phân quyền theo **Trục dọc (Phòng ban/Chi nhánh)** và **Trục ngang (Cấp bậc quản lý)**.
 * **Làm rõ chi tiết:**
 * *Data Scope (Phạm vi dữ liệu):* `HR Staff` thuộc Chi nhánh A chỉ được xem hồ sơ nhân viên Chi nhánh A. `Department Manager` phòng IT chỉ được duyệt đơn của nhân viên phòng IT.
 * *Hierarchical Permission:* Quản lý cấp cao hơn mặc định có quyền phê duyệt/xem dữ liệu của các cấp dưới trong sơ đồ cây (Org Chart).

@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: eHRM Enterprise Extensions API
+  title: iHRM Enterprise Extensions API
   version: 1.0.0
   description: Phase 4 API specification for Enterprise Identity, Integrations, Mobile, Analytics, Compliance, and Operations.
 servers:

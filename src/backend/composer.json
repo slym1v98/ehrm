@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "intrustdss/ihrm-backend",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "iHRM (IntrustDSS Human Resource Management) backend.",
+    "keywords": ["ihrm", "hrm", "intrustdss", "laravel"],
     "license": "MIT",
     "require": {
         "php": "^8.2",

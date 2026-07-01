@@ -1,4 +1,4 @@
-Hệ thống eHRM
+Hệ thống iHRM (IntrustDSS Human Resource Management)
 
 ## 1. Core / Nền tảng
 

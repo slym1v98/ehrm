@@ -8,7 +8,7 @@ Status: Draft for review
 
 ### 1.1 Purpose
 
-This document defines the software requirements for Phase 4 of the eHRM system: Enterprise Extensions. This phase hardens the platform for broader enterprise controls, advanced integrations, mobile readiness, and operational scale.
+This document defines the software requirements for Phase 4 of the iHRM system: Enterprise Extensions. This phase hardens the platform for broader enterprise controls, advanced integrations, mobile readiness, and operational scale.
 
 ### 1.2 Scope
 

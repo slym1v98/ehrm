@@ -6,7 +6,7 @@ Status: Draft for review
 
 ## 1. Purpose
 
-Cross-phase logical data model for eHRM. Detailed phase ERDs live in `01..04` files.
+Cross-phase logical data model for iHRM. Detailed phase ERDs live in `01..04` files.
 
 ## 2. Conventions
 

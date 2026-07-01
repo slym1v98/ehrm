@@ -1,0 +1,84 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: ihrm_test
+          POSTGRES_USER: ihrm
+          POSTGRES_PASSWORD: ihrm
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ihrm"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_pgsql, bcmath, redis
+          coverage: none
+
+      - name: Install backend dependencies
+        working-directory: src/backend
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Prepare test env
+        working-directory: src/backend
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: ihrm_test
+          DB_USERNAME: ihrm
+          DB_PASSWORD: ihrm
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan config:clear
+
+      - name: Run backend tests
+        working-directory: src/backend
+        env:
+          DB_CONNECTION: pgsql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+          DB_DATABASE: ihrm_test
+          DB_USERNAME: ihrm
+          DB_PASSWORD: ihrm
+        run: php artisan test
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: src/frontend
+        run: npm install --no-audit --no-fund
+
+      - name: Lint frontend
+        working-directory: src/frontend
+        run: npm run lint
