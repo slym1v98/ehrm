@@ -13,6 +13,12 @@ use App\Modules\Configuration\Infrastructure\Persistence\Repositories\EloquentHo
 use App\Modules\Configuration\Infrastructure\Persistence\Repositories\EloquentLookupRepository;
 use App\Modules\Configuration\Infrastructure\Persistence\Repositories\EloquentNotificationThresholdRepository;
 use App\Modules\Configuration\Infrastructure\Persistence\Repositories\EloquentSystemSettingRepository;
+use App\Modules\Employee\Domain\Repositories\ContractRepositoryInterface;
+use App\Modules\Employee\Domain\Repositories\EmployeeDocumentRepositoryInterface;
+use App\Modules\Employee\Domain\Repositories\EmployeeRepositoryInterface;
+use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentContractRepository;
+use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentEmployeeDocumentRepository;
+use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentEmployeeRepository;
 use App\Modules\Identity\Domain\Repositories\RoleRepositoryInterface;
 use App\Modules\Identity\Domain\Repositories\UserRepositoryInterface;
 use App\Modules\Organization\Domain\Repositories\BranchRepositoryInterface;
@@ -53,6 +59,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BranchRepositoryInterface::class, EloquentBranchRepository::class);
         $this->app->bind(DepartmentRepositoryInterface::class, EloquentDepartmentRepository::class);
         $this->app->bind(PositionRepositoryInterface::class, EloquentPositionRepository::class);
+        $this->app->bind(EmployeeRepositoryInterface::class, EloquentEmployeeRepository::class);
+        $this->app->bind(ContractRepositoryInterface::class, EloquentContractRepository::class);
+        $this->app->bind(EmployeeDocumentRepositoryInterface::class, EloquentEmployeeDocumentRepository::class);
     }
 
     public function boot(): void
