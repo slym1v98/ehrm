@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Modules\Identity\Infrastructure\Seeders;
+
+use App\Modules\Identity\Infrastructure\Persistence\Eloquent\PermissionModel;
+use Illuminate\Database\Seeder;
+
+class PermissionSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $permissions = [
+            ['identity.user.list', 'user.list', 'List users'],
+            ['identity.user.view', 'user.view', 'View user'],
+            ['identity.user.create', 'user.create', 'Create user'],
+            ['identity.user.update', 'user.update', 'Update user'],
+            ['identity.user.disable', 'user.disable', 'Disable user'],
+            ['identity.user.reactivate', 'user.reactivate', 'Reactivate user'],
+            ['identity.user.reset_password', 'user.reset_password', 'Reset password'],
+            ['identity.user.assign_role', 'user.assign_role', 'Assign role'],
+            ['identity.user.revoke_role', 'user.revoke_role', 'Revoke role'],
+            ['identity.user.grant_scope', 'user.grant_scope', 'Grant data scope'],
+            ['identity.user.revoke_scope', 'user.revoke_scope', 'Revoke data scope'],
+            ['identity.role.list', 'role.list', 'List roles'],
+            ['identity.role.view', 'role.view', 'View role'],
+            ['identity.role.create', 'role.create', 'Create role'],
+            ['identity.role.update', 'role.update', 'Update role'],
+            ['identity.role.grant_permission', 'role.grant_permission', 'Grant permission to role'],
+            ['identity.role.revoke_permission', 'role.revoke_permission', 'Revoke permission from role'],
+            ['identity.permission.list', 'permission.list', 'List permissions'],
+        ];
+
+        foreach ($permissions as [$code, $action, $description]) {
+            PermissionModel::updateOrCreate(
+                ['code' => $code],
+                [
+                    'module' => 'identity',
+                    'action' => $action,
+                    'description' => $description,
+                    'active' => true,
+                ],
+            );
+        }
+    }
+}

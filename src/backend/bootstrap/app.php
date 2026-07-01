@@ -2,6 +2,7 @@
 
 use App\Modules\Shared\Exceptions\AppException;
 use App\Modules\Shared\Exceptions\ValidationException as SharedValidationException;
+use App\Modules\Identity\Infrastructure\Http\Middleware\PermissionMiddleware;
 use App\Modules\Shared\Http\Middleware\ForceJsonMiddleware;
 use App\Modules\Shared\Http\Resources\ErrorResource;
 use Illuminate\Auth\AuthenticationException;
@@ -20,6 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->api(prepend: [
             ForceJsonMiddleware::class,
+        ]);
+
+        $middleware->alias([
+            'permission' => PermissionMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
