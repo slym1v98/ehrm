@@ -2,10 +2,16 @@
 
 namespace App\Modules\Identity\Application\Services;
 
+use App\Modules\Identity\Domain\Aggregates\User\Email;
+use App\Modules\Identity\Domain\Aggregates\User\UserId;
+use App\Modules\Identity\Domain\Events\UserLoggedIn;
+use App\Modules\Identity\Domain\Events\UserLoginFailed;
 use App\Modules\Identity\Domain\Exceptions\InvalidCredentialsException;
 use App\Modules\Identity\Domain\Exceptions\InvalidPasswordException;
 use App\Modules\Identity\Domain\Exceptions\UserDisabledException;
 use App\Modules\Identity\Infrastructure\Persistence\Eloquent\UserModel;
+use DateTimeImmutable;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationService
@@ -13,18 +19,22 @@ class AuthenticationService
     /** @return array{access_token: string, token_type: string, user: UserModel} */
     public function login(string $email, string $password): array
     {
-        $user = UserModel::where('email', mb_strtolower(trim($email)))->first();
+        $emailValue = mb_strtolower(trim($email));
+        $user = UserModel::where('email', $emailValue)->first();
 
         if (! $user || ! Hash::check($password, $user->password)) {
+            Event::dispatch(new UserLoginFailed(Email::fromString($emailValue), 'Invalid credentials', new DateTimeImmutable()));
             throw new InvalidCredentialsException('Invalid credentials');
         }
 
         if ($user->status !== 'active') {
+            Event::dispatch(new UserLoginFailed(Email::fromString($emailValue), 'User is disabled', new DateTimeImmutable()));
             throw new UserDisabledException('User is disabled');
         }
 
         $user->last_login_at = now();
         $user->save();
+        Event::dispatch(new UserLoggedIn(UserId::fromString($user->id), new DateTimeImmutable()));
 
         return [
             'access_token' => $user->createToken('api')->plainTextToken,
