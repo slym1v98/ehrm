@@ -32,6 +32,19 @@ final class EmployeeDocument
         return $document;
     }
 
+    public static function reconstitute(
+        EmployeeDocumentId $id,
+        EmployeeId $employeeId,
+        string $documentType,
+        ?string $category,
+        DocumentDescriptor $descriptor,
+        ?DateTimeImmutable $issueDate,
+        ?DateTimeImmutable $expiryDate,
+        DocumentStatus $status,
+    ): self {
+        return new self($id, $employeeId, $documentType, $category, $descriptor, $issueDate, $expiryDate, $status);
+    }
+
     public function replace(EmployeeDocumentId $newId, DocumentDescriptor $newDescriptor): self
     {
         $this->status = DocumentStatus::Archived;
@@ -56,6 +69,14 @@ final class EmployeeDocument
     {
         return $this->status;
     }
+
+    public function id(): EmployeeDocumentId { return $this->id; }
+    public function employeeId(): EmployeeId { return $this->employeeId; }
+    public function documentType(): string { return $this->documentType; }
+    public function category(): ?string { return $this->category; }
+    public function descriptor(): DocumentDescriptor { return $this->descriptor; }
+    public function issueDate(): ?DateTimeImmutable { return $this->issueDate; }
+    public function expiryDate(): ?DateTimeImmutable { return $this->expiryDate; }
 
     public function releaseEvents(): array
     {

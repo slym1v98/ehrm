@@ -42,6 +42,27 @@ final class Employee
         return $employee;
     }
 
+    /** @param EmploymentSnapshot[] $history */
+    public static function reconstitute(
+        EmployeeId $id,
+        EmployeeCode $code,
+        PersonalName $name,
+        ?DateTimeImmutable $dob,
+        ?string $gender,
+        ?string $personalEmail,
+        ?string $phone,
+        ?Address $address,
+        EmployeeStatus $status,
+        ?EmployeeId $managerId,
+        ?string $branchId,
+        ?string $departmentId,
+        ?string $positionId,
+        ?string $userId,
+        array $history = [],
+    ): self {
+        return new self($id, $code, $name, $dob, $gender, $personalEmail, $phone, $address, $status, $managerId, $branchId, $departmentId, $positionId, $userId, $history);
+    }
+
     public function updatePersonalInfo(PersonalName $name, ?DateTimeImmutable $dob, ?string $gender, ?string $personalEmail, ?string $phone, ?Address $address): void
     {
         $changed = [];
@@ -92,7 +113,17 @@ final class Employee
     public function id(): EmployeeId { return $this->id; }
     public function code(): EmployeeCode { return $this->code; }
     public function name(): PersonalName { return $this->name; }
+    public function dob(): ?DateTimeImmutable { return $this->dob; }
+    public function gender(): ?string { return $this->gender; }
+    public function personalEmail(): ?string { return $this->personalEmail; }
+    public function phone(): ?string { return $this->phone; }
+    public function address(): ?Address { return $this->address; }
     public function status(): EmployeeStatus { return $this->status; }
+    public function managerId(): ?EmployeeId { return $this->managerId; }
+    public function branchId(): ?string { return $this->branchId; }
+    public function departmentId(): ?string { return $this->departmentId; }
+    public function positionId(): ?string { return $this->positionId; }
+    public function userId(): ?string { return $this->userId; }
     public function history(): array { return $this->history; }
 
     public function releaseEvents(): array

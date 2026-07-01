@@ -38,6 +38,19 @@ final class Contract
         return $contract;
     }
 
+    public static function reconstitute(
+        ContractId $id,
+        EmployeeId $employeeId,
+        string $contractNumber,
+        ContractTerm $term,
+        ContractStatus $status,
+        ?ContractId $predecessorContractId = null,
+        ?DateTimeImmutable $signDate = null,
+        ?string $positionId = null,
+    ): self {
+        return new self($id, $employeeId, $contractNumber, $term, $status, $predecessorContractId, $signDate, $positionId);
+    }
+
     public function activate(): void
     {
         if ($this->status === ContractStatus::Active) {
@@ -76,6 +89,16 @@ final class Contract
     {
         return $this->term->dateRange;
     }
+
+    public function id(): ContractId { return $this->id; }
+    public function employeeId(): EmployeeId { return $this->employeeId; }
+    public function contractNumber(): string { return $this->contractNumber; }
+    public function contractType(): string { return $this->term->type; }
+    public function status(): ContractStatus { return $this->status; }
+    public function predecessorContractId(): ?ContractId { return $this->predecessorContractId; }
+    public function signDate(): ?DateTimeImmutable { return $this->signDate; }
+    public function positionId(): ?string { return $this->positionId; }
+    public function baseSalary(): ?float { return $this->term->salary; }
 
     public function releaseEvents(): array
     {
