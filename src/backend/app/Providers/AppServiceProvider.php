@@ -19,6 +19,10 @@ use App\Modules\Employee\Domain\Repositories\EmployeeRepositoryInterface;
 use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentContractRepository;
 use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentEmployeeDocumentRepository;
 use App\Modules\Employee\Infrastructure\Persistence\Repositories\EloquentEmployeeRepository;
+use App\Modules\Shift\Domain\Repositories\ShiftAssignmentRepositoryInterface;
+use App\Modules\Shift\Domain\Repositories\ShiftTemplateRepositoryInterface;
+use App\Modules\Shift\Infrastructure\Persistence\Repositories\EloquentShiftAssignmentRepository;
+use App\Modules\Shift\Infrastructure\Persistence\Repositories\EloquentShiftTemplateRepository;
 use App\Modules\Employee\Domain\Events\ContractActivated;
 use App\Modules\Employee\Domain\Events\ContractCreated;
 use App\Modules\Employee\Domain\Events\ContractExpired;
@@ -89,6 +93,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EmployeeRepositoryInterface::class, EloquentEmployeeRepository::class);
         $this->app->bind(ContractRepositoryInterface::class, EloquentContractRepository::class);
         $this->app->bind(EmployeeDocumentRepositoryInterface::class, EloquentEmployeeDocumentRepository::class);
+        $this->app->bind(ShiftTemplateRepositoryInterface::class, EloquentShiftTemplateRepository::class);
+        $this->app->bind(ShiftAssignmentRepositoryInterface::class, EloquentShiftAssignmentRepository::class);
     }
 
     public function boot(): void

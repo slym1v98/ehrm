@@ -67,6 +67,9 @@ class PermissionSeeder extends Seeder
             ['employee.document.replace', 'replace', 'Replace employee document'],
             ['employee.document.archive', 'archive', 'Archive employee document'],
             ['employee.document.download', 'download', 'Download employee document'],
+            ['shift.template.view', 'template', 'View shift templates'],
+            ['shift.template.create', 'template', 'Create shift template'],
+            ['shift.template.update', 'template', 'Update/Activate/Deactivate shift template'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {
