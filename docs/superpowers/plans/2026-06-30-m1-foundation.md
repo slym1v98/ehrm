@@ -4,11 +4,40 @@
 
 **Goal:** Establish dev environment (Docker Compose with Laravel 12 / PHP 8.4 + NextJS + PostgreSQL 16 + Redis 7 + MinIO), shared API conventions (error envelope, pagination, Sanctum auth middleware), and CI pipeline.
 
-**Architecture:** Docker multi-service stack for local dev. Source lives under `src/`: Laravel backend in `src/backend`, NextJS frontend in `src/frontend`. Dockerfiles live under `docker/`: PHP in `docker/php/Dockerfile`, NextJS in `docker/nextjs/Dockerfile`. Laravel backend is API-only with Sanctum bearer tokens. Shared infrastructure layer lives in `src/backend/app/Modules/Shared/`.
+**Architecture:** Docker multi-service stack for local dev. Source lives under `src/`: Laravel backend in `src/backend`, NextJS frontend in `src/frontend`. Dockerfiles live under `docker/`: PHP in `docker/php/Dockerfile`, NextJS in `docker/nextjs/Dockerfile`, nginx config in `docker/nginx/conf.d/default.conf`. Nginx is the only host-facing service: `ihrm.test` routes to frontend and `api.ihrm.test` routes to backend. Laravel backend is API-only with Sanctum bearer tokens. Shared infrastructure layer lives in `src/backend/app/Modules/Shared/`.
 
 **Tech Stack:** PHP 8.4, Laravel 12, Sanctum, PostgreSQL 16, Redis 7, MinIO, Docker Compose, NextJS 14+, Tailwind CSS, shadcn/ui, PHPStan, PHPUnit, ESLint, Prettier.
 
 ---
+
+### Dev domain setup
+
+Before starting the stack, add local hostnames:
+
+```bash
+echo "127.0.0.1 ihrm.test api.ihrm.test" | sudo tee -a /etc/hosts
+```
+
+Access points:
+
+- Frontend: `http://ihrm.test`
+- Backend API: `http://api.ihrm.test/api/v1`
+- Nginx is the only service exposing host port `80`. Backend, frontend, PostgreSQL, Redis, and MinIO are internal Docker services only.
+
+Validation:
+
+```bash
+docker compose up -d --build
+curl -I http://ihrm.test
+curl -i http://api.ihrm.test/api/v1/users
+docker compose ps
+```
+
+Expected:
+
+- `ihrm.test` returns `200`.
+- `api.ihrm.test/api/v1/users` returns `401` JSON error envelope.
+- `docker compose ps` shows only nginx mapping host port `80`.
 
 ### Task 1.1: Write Docker Compose services
 
@@ -93,8 +122,8 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ihrm}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ihrm_secret}
       MINIO_BUCKET: ${MINIO_BUCKET:-ihrm-documents}
-    ports:
-      - "${APP_PORT:-8000}:8000"
+    expose:
+      - "8000"
     volumes:
       - .:/app
 
@@ -105,8 +134,8 @@ services:
     working_dir: /app/src/frontend
     depends_on:
       - app
-    ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+    expose:
+      - "3000"
     volumes:
       - .:/app
 
@@ -121,8 +150,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${DB_PORT:-5432}:5432"
+    expose:
+      - "5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -133,8 +162,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${REDIS_PORT:-6379}:6379"
+    expose:
+      - "6379"
 
   minio:
     image: minio/minio:latest
@@ -147,9 +176,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${MINIO_PORT:-9000}:9000"
-      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    expose:
+      - "9000"
+      - "9001"
     volumes:
       - miniodata:/data
 

@@ -1,6 +1,16 @@
 name: ihrm
 
 services:
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - app
+      - frontend
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+
   app:
     build:
       context: .
@@ -29,8 +39,8 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-ihrm}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-ihrm_secret}
       MINIO_BUCKET: ${MINIO_BUCKET:-ihrm-documents}
-    ports:
-      - "${APP_PORT:-8000}:8000"
+    expose:
+      - "8000"
     volumes:
       - .:/app
 
@@ -41,8 +51,8 @@ services:
     working_dir: /app/src/frontend
     depends_on:
       - app
-    ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+    expose:
+      - "3000"
     volumes:
       - .:/app
 
@@ -57,8 +67,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${DB_PORT:-5432}:5432"
+    expose:
+      - "5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -69,8 +79,8 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${REDIS_PORT:-6379}:6379"
+    expose:
+      - "6379"
 
   minio:
     image: minio/minio:latest
@@ -83,9 +93,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
-    ports:
-      - "${MINIO_PORT:-9000}:9000"
-      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    expose:
+      - "9000"
+      - "9001"
     volumes:
       - miniodata:/data
 
