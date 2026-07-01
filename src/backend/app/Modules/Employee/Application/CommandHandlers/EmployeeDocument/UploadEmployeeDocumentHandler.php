@@ -34,7 +34,7 @@ class UploadEmployeeDocumentHandler
             $command->category,
         );
 
-        $this->documents->save($document);
+        $this->documents->saveAndDispatch($document);
         return $document;
     }
 }

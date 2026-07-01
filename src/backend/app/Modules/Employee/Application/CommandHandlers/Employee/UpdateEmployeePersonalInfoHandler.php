@@ -27,6 +27,6 @@ class UpdateEmployeePersonalInfoHandler
             $command->phone,
             new Address(),
         );
-        $this->employees->save($employee);
+        $this->employees->saveAndDispatch($employee);
     }
 }

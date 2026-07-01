@@ -20,6 +20,6 @@ class ChangeEmployeeStatusHandler
         $employee = $this->employees->findById(EmployeeId::fromString($command->employeeId));
         if (! $employee) throw new EmployeeNotFoundException($command->employeeId);
         $employee->changeStatus(EmployeeStatus::from($command->status), $this->policy, $command->reason);
-        $this->employees->save($employee);
+        $this->employees->saveAndDispatch($employee);
     }
 }

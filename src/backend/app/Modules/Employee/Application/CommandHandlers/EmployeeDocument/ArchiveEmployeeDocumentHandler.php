@@ -18,6 +18,6 @@ class ArchiveEmployeeDocumentHandler
         $document = $this->documents->findById(EmployeeDocumentId::fromString($command->documentId));
         if (! $document) throw new EmployeeDocumentNotFoundException($command->documentId);
         $document->archive();
-        $this->documents->save($document);
+        $this->documents->saveAndDispatch($document);
     }
 }

@@ -23,7 +23,7 @@ class ReplaceEmployeeDocumentHandler
             EmployeeDocumentId::generate(),
             new DocumentDescriptor($command->filePath, $command->originalName, $command->mime, $command->size),
         );
-        $this->documents->save($current);
-        $this->documents->save($replacement);
+        $this->documents->saveAndDispatch($current);
+        $this->documents->saveAndDispatch($replacement);
     }
 }

@@ -13,4 +13,5 @@ interface EmployeeRepositoryInterface
     public function findAllPaginated(int $page, int $perPage = 15): array;
     public function existsByCode(string $code): bool;
     public function save(Employee $employee): void;
+    public function saveAndDispatch(Employee $employee): void;
 }

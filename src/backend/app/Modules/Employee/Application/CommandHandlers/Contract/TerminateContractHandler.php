@@ -18,6 +18,6 @@ class TerminateContractHandler
         $contract = $this->contracts->findById(ContractId::fromString($command->contractId));
         if (! $contract) throw new ContractNotFoundException($command->contractId);
         $contract->terminate();
-        $this->contracts->save($contract);
+        $this->contracts->saveAndDispatch($contract);
     }
 }

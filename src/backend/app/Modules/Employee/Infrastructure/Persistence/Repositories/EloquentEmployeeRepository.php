@@ -10,6 +10,7 @@ use App\Modules\Employee\Domain\Aggregates\Employee\EmployeeStatus;
 use App\Modules\Employee\Domain\Aggregates\Employee\PersonalName;
 use App\Modules\Employee\Domain\Repositories\EmployeeRepositoryInterface;
 use App\Modules\Employee\Infrastructure\Persistence\Eloquent\EmployeeModel;
+use Illuminate\Support\Facades\Event;
 
 class EloquentEmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -70,6 +71,14 @@ class EloquentEmployeeRepository implements EmployeeRepositoryInterface
                 'user_id' => $employee->userId(),
             ]
         );
+    }
+
+    public function saveAndDispatch(Employee $employee): void
+    {
+        $this->save($employee);
+        foreach ($employee->releaseEvents() as $event) {
+            Event::dispatch($event);
+        }
     }
 
     private function toDomain(EmployeeModel $record): Employee

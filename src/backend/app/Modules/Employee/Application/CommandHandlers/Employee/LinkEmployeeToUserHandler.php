@@ -18,6 +18,6 @@ class LinkEmployeeToUserHandler
         $employee = $this->employees->findById(EmployeeId::fromString($command->employeeId));
         if (! $employee) throw new EmployeeNotFoundException($command->employeeId);
         $employee->linkUserAccount($command->userId);
-        $this->employees->save($employee);
+        $this->employees->saveAndDispatch($employee);
     }
 }

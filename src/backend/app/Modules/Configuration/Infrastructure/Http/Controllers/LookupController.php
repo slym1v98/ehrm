@@ -2,13 +2,16 @@
 
 namespace App\Modules\Configuration\Infrastructure\Http\Controllers;
 
+use App\Modules\Configuration\Domain\Events\LookupValueChanged;
 use App\Modules\Configuration\Domain\Repositories\LookupRepositoryInterface;
 use App\Modules\Configuration\Infrastructure\Http\Requests\StoreLookupGroupRequest;
 use App\Modules\Configuration\Infrastructure\Http\Requests\StoreLookupValueRequest;
 use App\Modules\Configuration\Infrastructure\Http\Resources\LookupGroupResource;
 use App\Modules\Configuration\Infrastructure\Http\Resources\LookupValueResource;
 use App\Modules\Shared\Http\Resources\PaginatedCollection;
+use DateTimeImmutable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LookupController
@@ -31,7 +34,9 @@ class LookupController
     public function storeValue(string $id, StoreLookupValueRequest $request, LookupRepositoryInterface $lookups): LookupValueResource
     {
         $group = $lookups->findGroup($id) ?? throw new NotFoundHttpException('Lookup group not found.');
+        $value = $lookups->saveValue($group, $request->validated());
+        Event::dispatch(new LookupValueChanged((string) $group->id, (string) $value->id, 'upsert', new DateTimeImmutable()));
 
-        return new LookupValueResource($lookups->saveValue($group, $request->validated()));
+        return new LookupValueResource($value);
     }
 }

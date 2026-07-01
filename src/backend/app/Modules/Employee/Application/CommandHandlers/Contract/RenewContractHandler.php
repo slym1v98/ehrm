@@ -33,7 +33,7 @@ class RenewContractHandler
             ),
         );
 
-        $this->contracts->save($contract);
-        $this->contracts->save($renewed);
+        $this->contracts->saveAndDispatch($contract);
+        $this->contracts->saveAndDispatch($renewed);
     }
 }

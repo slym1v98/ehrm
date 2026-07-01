@@ -13,4 +13,5 @@ interface EmployeeDocumentRepositoryInterface
     public function findByEmployeeId(EmployeeId $employeeId): array;
     public function findAllPaginated(int $page, int $perPage = 15, ?EmployeeId $employeeId = null): array;
     public function save(EmployeeDocument $document): void;
+    public function saveAndDispatch(EmployeeDocument $document): void;
 }

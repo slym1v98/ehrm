@@ -10,6 +10,7 @@ use App\Modules\Employee\Domain\Aggregates\Contract\DateRange;
 use App\Modules\Employee\Domain\Aggregates\Employee\EmployeeId;
 use App\Modules\Employee\Domain\Repositories\ContractRepositoryInterface;
 use App\Modules\Employee\Infrastructure\Persistence\Eloquent\ContractModel;
+use Illuminate\Support\Facades\Event;
 
 class EloquentContractRepository implements ContractRepositoryInterface
 {
@@ -66,6 +67,14 @@ class EloquentContractRepository implements ContractRepositoryInterface
                 'position_id' => $contract->positionId(),
             ]
         );
+    }
+
+    public function saveAndDispatch(Contract $contract): void
+    {
+        $this->save($contract);
+        foreach ($contract->releaseEvents() as $event) {
+            Event::dispatch($event);
+        }
     }
 
     private function toDomain(ContractModel $record): Contract

@@ -9,6 +9,7 @@ use App\Modules\Employee\Domain\Aggregates\EmployeeDocument\EmployeeDocument;
 use App\Modules\Employee\Domain\Aggregates\EmployeeDocument\EmployeeDocumentId;
 use App\Modules\Employee\Domain\Repositories\EmployeeDocumentRepositoryInterface;
 use App\Modules\Employee\Infrastructure\Persistence\Eloquent\EmployeeDocumentModel;
+use Illuminate\Support\Facades\Event;
 
 class EloquentEmployeeDocumentRepository implements EmployeeDocumentRepositoryInterface
 {
@@ -55,6 +56,14 @@ class EloquentEmployeeDocumentRepository implements EmployeeDocumentRepositoryIn
                 'status' => $document->status()->value,
             ]
         );
+    }
+
+    public function saveAndDispatch(EmployeeDocument $document): void
+    {
+        $this->save($document);
+        foreach ($document->releaseEvents() as $event) {
+            Event::dispatch($event);
+        }
     }
 
     private function toDomain(EmployeeDocumentModel $record): EmployeeDocument

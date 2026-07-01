@@ -33,6 +33,6 @@ class ActivateContractHandler
         }
 
         $contract->activate();
-        $this->contracts->save($contract);
+        $this->contracts->saveAndDispatch($contract);
     }
 }

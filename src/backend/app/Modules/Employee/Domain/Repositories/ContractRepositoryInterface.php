@@ -15,4 +15,5 @@ interface ContractRepositoryInterface
     public function findActiveByEmployeeId(EmployeeId $employeeId): array;
     public function findAllPaginated(int $page, int $perPage = 15, ?EmployeeId $employeeId = null): array;
     public function save(Contract $contract): void;
+    public function saveAndDispatch(Contract $contract): void;
 }
