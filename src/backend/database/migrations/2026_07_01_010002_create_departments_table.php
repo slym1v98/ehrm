@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('branch_id')->constrained('branches')->restrictOnDelete();
-            $table->foreignUuid('parent_id')->nullable()->constrained('departments')->restrictOnDelete();
+            $table->uuid('parent_id')->nullable();
             $table->string('code', 50);
             $table->string('name');
             $table->foreignUuid('manager_employee_id')->nullable();
@@ -21,6 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('departments', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('departments')->restrictOnDelete();
             $table->index(['branch_id', 'status']);
             $table->index('parent_id');
         });
