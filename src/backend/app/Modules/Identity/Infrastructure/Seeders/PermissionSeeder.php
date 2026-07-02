@@ -105,6 +105,12 @@ class PermissionSeeder extends Seeder
             ['payroll.payslip.view', 'payslip.view', 'View any payslip'],
             ['payroll.payslip.view_self', 'payslip.view_self', 'View own payslip'],
             ['payroll.component.manage', 'component.manage', 'Manage payroll components'],
+            ['notification.view-own', 'view-own', 'View own notifications'],
+            ['notification.mark-read-own', 'mark-read-own', 'Mark own notifications read'],
+            ['notification.preference.manage-own', 'preference.manage-own', 'Manage own notification preferences'],
+            ['notification.template.view', 'template.view', 'View notification templates'],
+            ['notification.template.manage', 'template.manage', 'Manage notification templates'],
+            ['notification.outbox.process', 'outbox.process', 'Process notification outbox'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

@@ -54,12 +54,14 @@ class RoleSeeder extends Seeder
                     'payroll.run.start', 'payroll.entry.view', 'payroll.entry.review',
                     'payroll.adjustment.manage', 'payroll.lock', 'payroll.publish',
                     'payroll.payslip.view',
+                    'notification.view-own', 'notification.mark-read-own', 'notification.preference.manage-own',
+                    'notification.template.view', 'notification.template.manage',
                 ],
             ],
             'EMPLOYEE' => [
                 'name' => 'Employee',
                 'description' => 'Self-service only',
-                'permissions' => ['organization.tree.view', 'payroll.payslip.view_self'],
+                'permissions' => ['organization.tree.view', 'payroll.payslip.view_self', 'notification.view-own', 'notification.mark-read-own', 'notification.preference.manage-own'],
             ],
         ];
 

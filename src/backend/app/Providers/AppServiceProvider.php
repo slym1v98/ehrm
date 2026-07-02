@@ -156,6 +156,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AttendanceReadPort::class, DatabaseAttendanceReadPort::class);
         $this->app->bind(LeaveReadPort::class, DatabaseLeaveReadPort::class);
         $this->app->bind(EmployeeContractReadPort::class, DatabaseEmployeeContractReadPort::class);
+        $this->app->bind(\App\Modules\Notification\Domain\Repositories\MessageTemplateRepositoryInterface::class, \App\Modules\Notification\Infrastructure\Persistence\Repositories\EloquentMessageTemplateRepository::class);
+        $this->app->bind(\App\Modules\Notification\Domain\Repositories\NotificationMessageRepositoryInterface::class, \App\Modules\Notification\Infrastructure\Persistence\Repositories\EloquentNotificationMessageRepository::class);
+        $this->app->bind(\App\Modules\Notification\Domain\Repositories\UserNotificationPreferenceRepositoryInterface::class, \App\Modules\Notification\Infrastructure\Persistence\Repositories\EloquentUserNotificationPreferenceRepository::class);
+        $this->app->bind(\App\Modules\Notification\Domain\Repositories\NotificationOutboxRepositoryInterface::class, \App\Modules\Notification\Infrastructure\Persistence\Repositories\EloquentNotificationOutboxRepository::class);
+        $this->app->bind(\App\Modules\Notification\Domain\Services\NotificationPublisher::class, \App\Modules\Notification\Application\NotificationPublisherService::class);
+        $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':in_app', \App\Modules\Notification\Infrastructure\Channels\InAppChannel::class);
+        $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':email', \App\Modules\Notification\Infrastructure\Channels\EmailChannel::class);
+        $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':sms', \App\Modules\Notification\Infrastructure\Channels\SmsChannel::class);
+        $this->commands([\App\Modules\Notification\Infrastructure\Console\ProcessNotificationOutboxCommand::class]);
     }
 
     public function boot(): void
