@@ -23,6 +23,14 @@ use App\Modules\Shift\Domain\Repositories\ShiftAssignmentRepositoryInterface;
 use App\Modules\Shift\Domain\Repositories\ShiftTemplateRepositoryInterface;
 use App\Modules\Shift\Infrastructure\Persistence\Repositories\EloquentShiftAssignmentRepository;
 use App\Modules\Shift\Infrastructure\Persistence\Repositories\EloquentShiftTemplateRepository;
+use App\Modules\Attendance\Domain\Repositories\AttendanceRawLogRepositoryInterface;
+use App\Modules\Attendance\Domain\Repositories\AttendanceTimesheetRepositoryInterface;
+use App\Modules\Attendance\Domain\Repositories\AttendanceAdjustmentRequestRepositoryInterface;
+use App\Modules\Attendance\Domain\Repositories\AttendancePeriodRepositoryInterface;
+use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendanceRawLogRepository;
+use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendanceTimesheetRepository;
+use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendanceAdjustmentRequestRepository;
+use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendancePeriodRepository;
 use App\Modules\Employee\Domain\Events\ContractActivated;
 use App\Modules\Employee\Domain\Events\ContractCreated;
 use App\Modules\Employee\Domain\Events\ContractExpired;
@@ -95,6 +103,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(EmployeeDocumentRepositoryInterface::class, EloquentEmployeeDocumentRepository::class);
         $this->app->bind(ShiftTemplateRepositoryInterface::class, EloquentShiftTemplateRepository::class);
         $this->app->bind(ShiftAssignmentRepositoryInterface::class, EloquentShiftAssignmentRepository::class);
+        $this->app->bind(AttendanceRawLogRepositoryInterface::class, EloquentAttendanceRawLogRepository::class);
+        $this->app->bind(AttendanceTimesheetRepositoryInterface::class, EloquentAttendanceTimesheetRepository::class);
+        $this->app->bind(AttendanceAdjustmentRequestRepositoryInterface::class, EloquentAttendanceAdjustmentRequestRepository::class);
+        $this->app->bind(AttendancePeriodRepositoryInterface::class, EloquentAttendancePeriodRepository::class);
     }
 
     public function boot(): void

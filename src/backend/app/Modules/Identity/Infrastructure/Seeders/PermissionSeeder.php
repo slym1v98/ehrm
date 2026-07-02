@@ -70,6 +70,13 @@ class PermissionSeeder extends Seeder
             ['shift.template.view', 'template', 'View shift templates'],
             ['shift.template.create', 'template', 'Create shift template'],
             ['shift.template.update', 'template', 'Update/Activate/Deactivate shift template'],
+            ['attendance.raw-log.create', 'raw-log.create', 'Create attendance raw log'],
+            ['attendance.raw-log.view', 'raw-log.view', 'View attendance raw logs'],
+            ['attendance.timesheet.view', 'timesheet.view', 'View attendance timesheets'],
+            ['attendance.timesheet.calculate', 'timesheet.calculate', 'Calculate attendance timesheets'],
+            ['attendance.adjustment.create', 'adjustment.create', 'Create attendance adjustment'],
+            ['attendance.adjustment.approve', 'adjustment.approve', 'Approve attendance adjustment'],
+            ['attendance.period.manage', 'period.manage', 'Manage attendance periods'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

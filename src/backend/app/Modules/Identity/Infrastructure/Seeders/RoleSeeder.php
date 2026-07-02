@@ -32,6 +32,10 @@ class RoleSeeder extends Seeder
                     'employee.contract.view', 'employee.contract.create', 'employee.contract.activate', 'employee.contract.renew', 'employee.contract.terminate',
                     'employee.document.view', 'employee.document.upload', 'employee.document.replace', 'employee.document.archive', 'employee.document.download',
                     'shift.template.view', 'shift.template.create', 'shift.template.update',
+                    'attendance.raw-log.create', 'attendance.raw-log.view',
+                    'attendance.timesheet.view', 'attendance.timesheet.calculate',
+                    'attendance.adjustment.create', 'attendance.adjustment.approve',
+                    'attendance.period.manage',
                 ],
             ],
             'EMPLOYEE' => [
