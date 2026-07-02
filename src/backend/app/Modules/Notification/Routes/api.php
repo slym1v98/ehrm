@@ -19,4 +19,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::patch('/notification-templates/{id}', [MessageTemplateController::class, 'update'])->middleware('permission:notification.template.manage');
     Route::post('/notification-templates/{id}/activate', [MessageTemplateController::class, 'activate'])->middleware('permission:notification.template.manage');
     Route::post('/notification-templates/{id}/deactivate', [MessageTemplateController::class, 'deactivate'])->middleware('permission:notification.template.manage');
+    Route::post('/notification-outbox/process', [NotificationController::class, 'processOutbox'])->middleware('permission:notification.outbox.process');
 });

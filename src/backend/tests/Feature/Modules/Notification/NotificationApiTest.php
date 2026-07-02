@@ -89,4 +89,11 @@ class NotificationApiTest extends TestCase
         $this->withToken($this->token)->postJson("/api/v1/notification-templates/{$id}/deactivate")->assertStatus(200);
         $this->withToken($this->token)->postJson("/api/v1/notification-templates/{$id}/activate")->assertStatus(200);
     }
+    public function test_admin_can_process_outbox(): void
+    {
+        $this->withToken($this->token)->postJson('/api/v1/notification-outbox/process', [
+            'limit' => 5,
+        ])->assertStatus(200);
+    }
+
 }

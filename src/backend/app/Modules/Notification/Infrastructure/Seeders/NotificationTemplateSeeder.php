@@ -19,9 +19,11 @@ class NotificationTemplateSeeder extends Seeder
         ['code' => 'shift.assigned', 'name' => 'Shift Assigned', 'channel' => 'in_app', 'subject' => 'New Shift Assignment', 'body' => 'You have been assigned the {{shift_name}} shift starting {{start_date}}.'],
         ['code' => 'shift.assignment.ended', 'name' => 'Shift Ended', 'channel' => 'in_app', 'subject' => 'Shift Assignment Ended', 'body' => 'Your shift assignment {{shift_name}} has ended.'],
         ['code' => 'payroll.payslip.available', 'name' => 'Payslip Available', 'channel' => 'in_app', 'subject' => 'Payslip Ready', 'body' => 'Your payslip for period {{period_code}} is now available.'],
+        ['code' => 'payroll.payslip.available.email', 'name' => 'Payslip Available Email', 'channel' => 'email', 'subject' => 'Payslip Ready', 'body' => 'Your payslip for period {{period_code}} is now available.'],
         ['code' => 'workflow.step.assigned', 'name' => 'Approval Step Assigned', 'channel' => 'in_app', 'subject' => 'Approval Required', 'body' => 'You have been assigned to approve {{subject_type}} request.'],
         ['code' => 'workflow.approved', 'name' => 'Workflow Approved', 'channel' => 'in_app', 'subject' => 'Request Approved', 'body' => 'Your {{subject_type}} request has been fully approved.'],
         ['code' => 'workflow.rejected', 'name' => 'Workflow Rejected', 'channel' => 'in_app', 'subject' => 'Request Rejected', 'body' => 'Your {{subject_type}} request has been rejected.'],
+        ['code' => 'workflow.returned', 'name' => 'Workflow Returned', 'channel' => 'in_app', 'subject' => 'Request Returned', 'body' => 'Your {{subject_type}} request has been returned for edit.'],
         ['code' => 'security.unauthorized.access', 'name' => 'Security Alert', 'channel' => 'in_app', 'subject' => 'Security Alert', 'body' => 'Unauthorized access attempt detected on your account.'],
     ];
 
