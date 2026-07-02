@@ -7,6 +7,7 @@ use App\Modules\Identity\Infrastructure\Seeders\AdminUserSeeder;
 use App\Modules\Identity\Infrastructure\Seeders\PermissionSeeder;
 use App\Modules\Identity\Infrastructure\Seeders\RoleSeeder;
 use App\Modules\Leave\Infrastructure\Seeders\LeaveTypeSeeder;
+use App\Modules\Payroll\Infrastructure\Seeders\PayrollComponentSeeder;
 use App\Modules\Organization\Infrastructure\Seeders\OrgStructureSeeder;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ConfigurationSeeder::class,
             OrgStructureSeeder::class,
             LeaveTypeSeeder::class,
+            PayrollComponentSeeder::class,
         ]);
     }
 }

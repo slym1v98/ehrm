@@ -40,12 +40,26 @@ class RoleSeeder extends Seeder
                     'leave.request.create', 'leave.request.view', 'leave.request.approve', 'leave.request.reject', 'leave.request.cancel',
                     'leave.balance.view',
                     'workflow.template.create', 'workflow.template.view', 'workflow.request.start', 'workflow.request.view', 'workflow.request.approve', 'workflow.request.reject', 'workflow.request.return', 'workflow.request.cancel',
+                    'payroll.period.view', 'payroll.entry.view', 'payroll.payslip.view', 'payroll.approve',
+                ],
+            ],
+            'PAYROLL' => [
+                'name' => 'Payroll Officer',
+                'description' => 'Manage payroll runs, adjustments, and publishing',
+                'permissions' => [
+                    'employee.view', 'employee.contract.view',
+                    'attendance.timesheet.view', 'attendance.period.manage',
+                    'leave.request.view', 'leave.balance.view',
+                    'payroll.period.view', 'payroll.period.manage',
+                    'payroll.run.start', 'payroll.entry.view', 'payroll.entry.review',
+                    'payroll.adjustment.manage', 'payroll.lock', 'payroll.publish',
+                    'payroll.payslip.view',
                 ],
             ],
             'EMPLOYEE' => [
                 'name' => 'Employee',
                 'description' => 'Self-service only',
-                'permissions' => ['organization.tree.view'],
+                'permissions' => ['organization.tree.view', 'payroll.payslip.view_self'],
             ],
         ];
 

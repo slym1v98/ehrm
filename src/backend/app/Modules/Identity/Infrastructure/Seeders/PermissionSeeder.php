@@ -93,6 +93,18 @@ class PermissionSeeder extends Seeder
             ['workflow.request.reject', 'workflow-request.reject', 'Reject workflow request'],
             ['workflow.request.return', 'workflow-request.return', 'Return workflow for edit'],
             ['workflow.request.cancel', 'workflow-request.cancel', 'Cancel workflow request'],
+            ['payroll.period.view', 'period.view', 'View payroll periods'],
+            ['payroll.period.manage', 'period.manage', 'Manage payroll periods'],
+            ['payroll.run.start', 'run.start', 'Start payroll calculation run'],
+            ['payroll.entry.view', 'entry.view', 'View payroll entries'],
+            ['payroll.entry.review', 'entry.review', 'Review payroll entries'],
+            ['payroll.adjustment.manage', 'adjustment.manage', 'Manage payroll adjustments'],
+            ['payroll.approve', 'approve', 'Approve payroll'],
+            ['payroll.lock', 'lock', 'Lock payroll'],
+            ['payroll.publish', 'publish', 'Publish payslips'],
+            ['payroll.payslip.view', 'payslip.view', 'View any payslip'],
+            ['payroll.payslip.view_self', 'payslip.view_self', 'View own payslip'],
+            ['payroll.component.manage', 'component.manage', 'Manage payroll components'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

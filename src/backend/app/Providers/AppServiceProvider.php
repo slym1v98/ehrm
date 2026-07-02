@@ -45,6 +45,25 @@ use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAtten
 use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendanceTimesheetRepository;
 use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendanceAdjustmentRequestRepository;
 use App\Modules\Attendance\Infrastructure\Persistence\Repositories\EloquentAttendancePeriodRepository;
+use App\Modules\Payroll\Domain\Repositories\PayrollPeriodRepositoryInterface;
+use App\Modules\Payroll\Domain\Repositories\PayrollComponentRepositoryInterface;
+use App\Modules\Payroll\Domain\Repositories\PayrollRunRepositoryInterface;
+use App\Modules\Payroll\Domain\Repositories\PayrollEntryRepositoryInterface;
+use App\Modules\Payroll\Domain\Repositories\PayrollAdjustmentRepositoryInterface;
+use App\Modules\Payroll\Domain\Repositories\PayslipRepositoryInterface;
+use App\Modules\Payroll\Domain\Ports\AttendanceReadPort;
+use App\Modules\Payroll\Domain\Ports\LeaveReadPort;
+use App\Modules\Payroll\Domain\Ports\EmployeeContractReadPort;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayrollPeriodRepository;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayrollComponentRepository;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayrollRunRepository;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayrollEntryRepository;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayrollAdjustmentRepository;
+use App\Modules\Payroll\Infrastructure\Persistence\Repositories\EloquentPayslipRepository;
+use App\Modules\Payroll\Infrastructure\Ports\DatabaseAttendanceReadPort;
+use App\Modules\Payroll\Infrastructure\Ports\DatabaseLeaveReadPort;
+use App\Modules\Payroll\Infrastructure\Ports\DatabaseEmployeeContractReadPort;
+
 use App\Modules\Employee\Domain\Events\ContractActivated;
 use App\Modules\Employee\Domain\Events\ContractCreated;
 use App\Modules\Employee\Domain\Events\ContractExpired;
@@ -128,6 +147,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AttendanceTimesheetRepositoryInterface::class, EloquentAttendanceTimesheetRepository::class);
         $this->app->bind(AttendanceAdjustmentRequestRepositoryInterface::class, EloquentAttendanceAdjustmentRequestRepository::class);
         $this->app->bind(AttendancePeriodRepositoryInterface::class, EloquentAttendancePeriodRepository::class);
+        $this->app->bind(PayrollPeriodRepositoryInterface::class, EloquentPayrollPeriodRepository::class);
+        $this->app->bind(PayrollComponentRepositoryInterface::class, EloquentPayrollComponentRepository::class);
+        $this->app->bind(PayrollRunRepositoryInterface::class, EloquentPayrollRunRepository::class);
+        $this->app->bind(PayrollEntryRepositoryInterface::class, EloquentPayrollEntryRepository::class);
+        $this->app->bind(PayrollAdjustmentRepositoryInterface::class, EloquentPayrollAdjustmentRepository::class);
+        $this->app->bind(PayslipRepositoryInterface::class, EloquentPayslipRepository::class);
+        $this->app->bind(AttendanceReadPort::class, DatabaseAttendanceReadPort::class);
+        $this->app->bind(LeaveReadPort::class, DatabaseLeaveReadPort::class);
+        $this->app->bind(EmployeeContractReadPort::class, DatabaseEmployeeContractReadPort::class);
     }
 
     public function boot(): void
