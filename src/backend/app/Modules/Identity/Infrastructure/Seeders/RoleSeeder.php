@@ -56,6 +56,7 @@ class RoleSeeder extends Seeder
                     'payroll.payslip.view',
                     'notification.view-own', 'notification.mark-read-own', 'notification.preference.manage-own',
                     'notification.template.view', 'notification.template.manage',
+                    'report.definition.view', 'report.run.create', 'report.run.view-own', 'report.run.view-all',
                 ],
             ],
             'EMPLOYEE' => [

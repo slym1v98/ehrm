@@ -111,6 +111,10 @@ class PermissionSeeder extends Seeder
             ['notification.template.view', 'template.view', 'View notification templates'],
             ['notification.template.manage', 'template.manage', 'Manage notification templates'],
             ['notification.outbox.process', 'outbox.process', 'Process notification outbox'],
+            ['report.definition.view', 'definition.view', 'View report definitions'],
+            ['report.run.create', 'run.create', 'Create report runs'],
+            ['report.run.view-own', 'run.view-own', 'View own report runs'],
+            ['report.run.view-all', 'run.view-all', 'View all report runs'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

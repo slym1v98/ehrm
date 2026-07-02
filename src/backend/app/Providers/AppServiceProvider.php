@@ -164,6 +164,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':in_app', \App\Modules\Notification\Infrastructure\Channels\InAppChannel::class);
         $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':email', \App\Modules\Notification\Infrastructure\Channels\EmailChannel::class);
         $this->app->bind(\App\Modules\Notification\Infrastructure\Channels\Contracts\NotificationChannelInterface::class . ':sms', \App\Modules\Notification\Infrastructure\Channels\SmsChannel::class);
+        $this->app->bind(\App\Modules\Reporting\Domain\Repositories\ReportDefinitionRepositoryInterface::class, \App\Modules\Reporting\Infrastructure\Persistence\Repositories\EloquentReportDefinitionRepository::class);
+        $this->app->bind(\App\Modules\Reporting\Domain\Repositories\ReportRunRepositoryInterface::class, \App\Modules\Reporting\Infrastructure\Persistence\Repositories\EloquentReportRunRepository::class);
         $this->commands([\App\Modules\Notification\Infrastructure\Console\ProcessNotificationOutboxCommand::class]);
     }
 
