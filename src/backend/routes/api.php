@@ -13,3 +13,4 @@ require __DIR__ . '/../app/Modules/Workflow/Routes/api.php';
 require __DIR__ . '/../app/Modules/Payroll/Routes/api.php';
 
 require __DIR__ . '/../app/Modules/Notification/Routes/api.php';
+require __DIR__ . '/../app/Modules/Reporting/Routes/api.php';
