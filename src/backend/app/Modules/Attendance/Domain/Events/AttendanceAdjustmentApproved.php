@@ -9,7 +9,7 @@ final readonly class AttendanceAdjustmentApproved
 {
     public function __construct(
         public AttendanceAdjustmentRequestId $requestId,
-        public AttendanceTimesheetId $timesheetId,
+        public string $timesheetId,
         public string $approvedBy,
     ) {}
 }
