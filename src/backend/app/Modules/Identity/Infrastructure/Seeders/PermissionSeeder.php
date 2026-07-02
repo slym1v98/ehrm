@@ -85,6 +85,14 @@ class PermissionSeeder extends Seeder
             ['leave.request.reject', 'leave-request.reject', 'Reject leave request'],
             ['leave.request.cancel', 'leave-request.cancel', 'Cancel leave request'],
             ['leave.balance.view', 'leave-balance.view', 'View leave balances'],
+            ['workflow.template.create', 'workflow-template.create', 'Create workflow template'],
+            ['workflow.template.view', 'workflow-template.view', 'View workflow templates'],
+            ['workflow.request.start', 'workflow-request.start', 'Start workflow request'],
+            ['workflow.request.view', 'workflow-request.view', 'View workflow requests'],
+            ['workflow.request.approve', 'workflow-request.approve', 'Approve workflow step'],
+            ['workflow.request.reject', 'workflow-request.reject', 'Reject workflow request'],
+            ['workflow.request.return', 'workflow-request.return', 'Return workflow for edit'],
+            ['workflow.request.cancel', 'workflow-request.cancel', 'Cancel workflow request'],
         ];
 
         foreach ($permissions as [$code, $action, $description]) {

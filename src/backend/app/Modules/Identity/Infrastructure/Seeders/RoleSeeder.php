@@ -39,6 +39,7 @@ class RoleSeeder extends Seeder
                     'leave.type.view', 'leave.policy.view',
                     'leave.request.create', 'leave.request.view', 'leave.request.approve', 'leave.request.reject', 'leave.request.cancel',
                     'leave.balance.view',
+                    'workflow.template.create', 'workflow.template.view', 'workflow.request.start', 'workflow.request.view', 'workflow.request.approve', 'workflow.request.reject', 'workflow.request.return', 'workflow.request.cancel',
                 ],
             ],
             'EMPLOYEE' => [
