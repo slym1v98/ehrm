@@ -1,4 +1,4 @@
-# AGENTS.md
+# CLAUDE.md
 
 Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
@@ -93,3 +93,28 @@ Deviation rule:
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## 6. Post-Implementation Verification Mandatory
+
+**After completing any module or significant change, always do both before declaring done:**
+
+1. **Run full backend test suite.**
+   ```bash
+   docker compose run --rm app php artisan test --compact
+   ```
+   All tests MUST pass. Report count.
+
+2. **Review the module against its spec document step by step.**
+   - Check every section in the spec (layout, domain model, API endpoints, permissions, exceptions, tests).
+   - Verify every `AC` (acceptance criteria) in the spec is met.
+   - Report any gap explicitly — describe what's missing and why (intentional YAGNI or bug).
+
+   ```
+   Example final output:
+   ✅ Full suite: N passed
+   ✅ Spec §3 structure: match
+   ✅ AC1–10: all covered
+   ❌ Gap: X not done (reason)
+   ```
+
+**Rationale:** Prevents "done but untested / spec-incomplete" handoffs. This is not optional — every module or large change cycle ends with this checklist.
