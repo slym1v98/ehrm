@@ -1,0 +1,4 @@
+<?php
+namespace App\Modules\Leave\Infrastructure\Http\Resources;
+use Illuminate\Http\Resources\Json\JsonResource;
+class LeaveRequestResource extends JsonResource { public function toArray($request): array { return ['id'=>$this->resource->id()->value(),'employee_id'=>$this->resource->employeeId(),'leave_type_id'=>$this->resource->leaveTypeId()->value(),'start_at'=>$this->resource->period()->startAt()->toDateString(),'end_at'=>$this->resource->period()->endAt()->toDateString(),'duration_unit'=>$this->resource->durationUnit()->value,'duration_minutes'=>$this->resource->period()->durationMinutes(),'reason'=>$this->resource->reason(),'status'=>$this->resource->status()->value,'approved_by'=>$this->resource->approvedBy(),'approved_at'=>$this->resource->approvedAt()?->toIso8601String(),'rejected_reason'=>$this->resource->rejectedReason(),'created_at'=>null,'updated_at'=>null]; } }

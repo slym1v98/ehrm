@@ -1,0 +1,1 @@
+<?php namespace App\Modules\Leave\Domain\Exceptions; use App\Modules\Shared\Exceptions\AppException; class OverlappingLeaveException extends AppException { public function __construct(string $detail = '') { parent::__construct('OVERLAPPING_LEAVE', trim('Overlapping leave: '.$detail)); } public function getHttpStatus(): int { return 409; } }

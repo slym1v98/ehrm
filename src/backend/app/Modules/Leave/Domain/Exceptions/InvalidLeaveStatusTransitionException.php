@@ -1,0 +1,1 @@
+<?php namespace App\Modules\Leave\Domain\Exceptions; use App\Modules\Shared\Exceptions\AppException; class InvalidLeaveStatusTransitionException extends AppException { public function __construct(string $detail = '') { parent::__construct('INVALID_LEAVE_STATUS_TRANSITION', trim('Invalid status transition: '.$detail)); } public function getHttpStatus(): int { return 422; } }
