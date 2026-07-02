@@ -33,6 +33,10 @@ use App\Modules\Leave\Infrastructure\Persistence\Repositories\EloquentLeavePolic
 use App\Modules\Leave\Infrastructure\Persistence\Repositories\EloquentLeaveRequestRepository;
 use App\Modules\Leave\Infrastructure\Persistence\Repositories\EloquentLeaveTypeRepository;
 use App\Modules\Leave\Infrastructure\Persistence\Repositories\EloquentLeaveWindowRepository;
+use App\Modules\Workflow\Domain\Repositories\WorkflowTemplateRepositoryInterface;
+use App\Modules\Workflow\Domain\Repositories\WorkflowRequestRepositoryInterface;
+use App\Modules\Workflow\Infrastructure\Persistence\Repositories\EloquentWorkflowTemplateRepository;
+use App\Modules\Workflow\Infrastructure\Persistence\Repositories\EloquentWorkflowRequestRepository;
 use App\Modules\Attendance\Domain\Repositories\AttendanceRawLogRepositoryInterface;
 use App\Modules\Attendance\Domain\Repositories\AttendanceTimesheetRepositoryInterface;
 use App\Modules\Attendance\Domain\Repositories\AttendanceAdjustmentRequestRepositoryInterface;
@@ -118,6 +122,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LeaveRequestRepositoryInterface::class, EloquentLeaveRequestRepository::class);
         $this->app->bind(LeaveBalanceRepositoryInterface::class, EloquentLeaveBalanceRepository::class);
         $this->app->bind(LeaveWindowInterface::class, EloquentLeaveWindowRepository::class);
+        $this->app->bind(WorkflowTemplateRepositoryInterface::class, EloquentWorkflowTemplateRepository::class);
+        $this->app->bind(WorkflowRequestRepositoryInterface::class, EloquentWorkflowRequestRepository::class);
         $this->app->bind(AttendanceRawLogRepositoryInterface::class, EloquentAttendanceRawLogRepository::class);
         $this->app->bind(AttendanceTimesheetRepositoryInterface::class, EloquentAttendanceTimesheetRepository::class);
         $this->app->bind(AttendanceAdjustmentRequestRepositoryInterface::class, EloquentAttendanceAdjustmentRequestRepository::class);

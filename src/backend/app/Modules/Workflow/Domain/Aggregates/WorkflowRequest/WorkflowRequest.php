@@ -38,6 +38,7 @@ class WorkflowRequest
     public function workflowTemplateId(): WorkflowTemplateId { return $this->workflowTemplateId; }
     public function subjectType(): string { return $this->subjectType; }
     public function subjectId(): string { return $this->subjectId; }
+    public function submittedBy(): string { return $this->submittedBy; }
     public function status(): RequestStatus { return $this->status; }
     public function currentStep(): ?int { return $this->currentStep; }
     public function actions(): array { return $this->actions; }
